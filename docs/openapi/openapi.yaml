@@ -1,0 +1,584 @@
+openapi: '3.0.3'
+info:
+    description: 7wd.online API specification
+    version: 1.0.0
+    title: OpenAPI 7wd.online
+    contact:
+        name: Danila Stivrinsh
+        email: danilaridzhi@gmail.com
+servers:
+    -   url: https://7wd.online.local/api/
+        description: Dev server
+paths:
+    /email-verification:
+        post:
+            summary: Send email verification
+            description: Send email verification
+            requestBody:
+                required: true
+                content:
+                    'application/json':
+                        schema:
+                            type: object
+                            required:
+                                - email
+                            properties:
+                                email:
+                                    type: string
+                                    maxLength: 64
+            responses:
+                201:
+                    description: Sent
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Email verification id
+                400:
+                    description: Failed
+                    content:
+                        'application/json':
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        get:
+            summary: Check email verification
+            description: Check email verification
+            parameters:
+                -   in: query
+                    name: email
+                    schema:
+                        type: string
+                    required: true
+                    description: Email to check
+                -   in: query
+                    name: confirmationCode
+                    schema:
+                        type: string
+                    required: true
+                    description: Confirmation code
+            responses:
+                200:
+                    description: Ok
+                400:
+                    description: Failed
+                    content:
+                        'application/json':
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /signup:
+        post:
+            summary: Create account
+            description: Create account
+            requestBody:
+                required: true
+                content:
+                    'application/json':
+                        schema:
+                            type: object
+                            required:
+                                - email
+                                - password
+                                - confirmationCode
+                                - nickname
+                            properties:
+                                email:
+                                    type: string
+                                    maxLength: 64
+                                password:
+                                    type: string
+                                    maxLength: 255
+                                confirmationCode:
+                                    type: string
+                                    maxLength: 5
+                                nickname:
+                                    type: string
+                                    minLength: 3
+                                    maxLength: 32
+            responses:
+                201:
+                    description: Account created
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: User id
+                400:
+                    description: Failed
+                    content:
+                        'application/json':
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /signin:
+        post:
+            summary: User login
+            description: User login
+            requestBody:
+                required: true
+                content:
+                    'application/json':
+                        schema:
+                            type: object
+                            required:
+                                - email
+                                - password
+                                - fingerprint
+                            properties:
+                                email:
+                                    type: string
+                                    maxLength: 64
+                                password:
+                                    type: string
+                                    maxLength: 255
+                                fingerprint:
+                                    type: string
+                                    description: Client fingerprint
+            responses:
+                200:
+                    description: User logged
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                required:
+                                    - accessToken
+                                    - refreshToken
+                                properties:
+                                    accessToken:
+                                        $ref: '#/components/schemas/Token'
+                                    refreshToken:
+                                        $ref: '#/components/schemas/Token'
+                400:
+                    description: Failed
+                    content:
+                        'application/json':
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /session:
+        post:
+            summary: Refresh session
+            description: Refresh session
+            parameters:
+                -   in: cookie
+                    name: rt
+                    schema:
+                        type: string
+            requestBody:
+                description: Session params
+                required: true
+                content:
+                    'application/json':
+                        schema:
+                            type: object
+                            required:
+                                - fingerprint
+                            properties:
+                                fingerprint:
+                                    type: string
+                                    description: Client fingerprint
+            responses:
+                200:
+                    description: Session refreshed
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                required:
+                                    - accessToken
+                                    - refreshToken
+                                properties:
+                                    accessToken:
+                                        $ref: '#/components/schemas/Token'
+                                    refreshToken:
+                                        $ref: '#/components/schemas/Token'
+                400:
+                    description: Failed
+                    content:
+                        'application/json':
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /lobby:
+        get:
+            security:
+                -   JWT: [ ]
+            description: Get lobby info
+
+            responses:
+                200:
+                    description: Ok
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                required:
+                                    - rooms
+                                    - online
+                                properties:
+                                    rooms:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                gameId:
+                                                    type: string
+                                                    description: Game id (if game started)
+                                                host:
+                                                    type: string
+                                                    description: Host nickname
+                                                guest:
+                                                    type: string
+                                                    description: Host nickname
+                                                options:
+                                                    $ref: '#/components/schemas/RoomOptions'
+                                    online:
+                                        type: array
+                                        items:
+                                            type: string
+
+    /room:
+        post:
+            description: Create room
+            security:
+                -   JWT: [ ]
+            requestBody:
+                required: true
+                content:
+                    'application/json':
+                        schema:
+                            $ref: '#/components/schemas/RoomOptions'
+            responses:
+                201:
+                    description: Session refreshed
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    accessToken:
+                                        $ref: '#/components/schemas/Token'
+                                    refreshToken:
+                                        $ref: '#/components/schemas/Token'
+                400:
+                    description: Failed
+                    content:
+                        'application/json':
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+        delete:
+            description: Delete room
+            security:
+                -   JWT: [ ]
+            responses:
+                200:
+                    description: Ok
+
+    /room/{host}/join:
+        post:
+            description: Join to room
+            security:
+                -   JWT: [ ]
+            parameters:
+                -   in: path
+                    name: host
+                    schema:
+                        type: string
+                    required: true
+                    description: Room host nickname
+            responses:
+                200:
+                    description: Ok
+                400:
+                    description: Fail
+
+    /room/{host}/leave:
+        post:
+            description: Leave room
+            security:
+                -   JWT: [ ]
+            parameters:
+                -   in: path
+                    name: host
+                    schema:
+                        type: string
+                    required: true
+                    description: Room host nickname
+            responses:
+                200:
+                    description: Ok
+                400:
+                    description: Fail
+    /room/kick:
+        post:
+            description: Kick guest from room
+            security:
+                -   JWT: [ ]
+            responses:
+                200:
+                    description: Ok
+                400:
+                    description: Fail
+
+    /game:
+        post:
+            security:
+                -   JWT: [ ]
+            description: Create game based on room
+            responses:
+                200:
+                    description: Ok
+                400:
+                    description: Fail
+
+    /game/{gid}:
+        get:
+            security:
+                -   JWT: [ ]
+            description: Get game state
+            parameters:
+                -   in: path
+                    name: gid
+                    schema:
+                        type: string
+                    required: true
+                    description: Game id
+            responses:
+                200:
+                    description: ok
+                    content:
+                        'application/json':
+                            schema:
+                                $ref: '#/components/schemas/Game'
+
+                400:
+                    description: Fail
+
+    /game/data:
+        get:
+            description: Get game data
+            security:
+                -   JWT: [ ]
+            responses:
+                200:
+                    description: ok
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                required:
+                                    - cards
+                                    - wonders
+                                properties:
+                                    cards:
+                                        type: object
+                                    wonders:
+                                        type: object
+    /game/select-wonder:
+        post:
+            description: Select wonder
+            security:
+                -   JWT: [ ]
+            requestBody:
+                required: true
+                content:
+                    'application/json':
+                        schema:
+                            type: object
+                            required:
+                                - gid
+                                - wid
+                            properties:
+                                gid:
+                                    type: string
+                                    description: game id
+                                wid:
+                                    type: integer
+                                    description: wonder id
+            responses:
+                200:
+                    description: ok
+
+components:
+    schemas:
+        Error:
+            type: object
+            properties:
+                err_id:
+                    type: integer
+                    description: Error id
+                err_message:
+                    type: string
+                    description: Error message
+        Game:
+            type: object
+            required:
+                - actor
+                - age
+                - enemy
+                - id
+                - p1
+                - p2
+                - phase
+                - progressTokens
+            properties:
+                actor:
+                    $ref: '#/components/schemas/Player'
+                age:
+                    type: integer
+                cards:
+                    $ref: '#/components/schemas/CardList'
+                enemy:
+                    $ref: '#/components/schemas/Player'
+                id:
+                    type: string
+                mtrack:
+                    type: object
+                    required:
+                        - p1
+                        - p2
+                        - pos
+                        - zones
+                    properties:
+                        p1:
+                            type: string
+                        p2:
+                            type: string
+                        pos:
+                            type: integer
+                        zones:
+                            type: object
+                        winner:
+                            type: string
+                p1:
+                    type: string
+                p2:
+                    type: string
+                phase:
+                    type: integer
+                progressTokens:
+                    $ref: '#/components/schemas/ProgressTokenList'
+                wonders:
+                    $ref: '#/components/schemas/WonderList'
+        Player:
+            type: object
+            required:
+                - cards
+                - chains
+                - nickname
+                - points
+                - progressTokens
+                - provision
+                - science
+                - wonders
+            properties:
+                cards:
+                    type: object
+                chains:
+                    $ref: '#/components/schemas/CardList'
+                nickname:
+                    type: string
+                points:
+                    type: integer
+                progressTokens:
+                    $ref: '#/components/schemas/ProgressTokenList'
+                provision:
+                    type: object
+                    properties:
+                        resources:
+                            type: object
+                        priceList:
+                            type: object
+                        discounters:
+                            type: array
+                            items:
+                                type: object
+                                required:
+                                    - context
+                                    - raw
+                                    - manufactured
+                                    - count
+                                properties:
+                                    context:
+                                        type: integer
+                                    raw:
+                                        type: boolean
+                                    manufactured:
+                                        type: boolean
+                                    count:
+                                        type: integer
+                science:
+                    type: object
+                wonders:
+                    $ref: '#/components/schemas/WonderList'
+        WonderList:
+            type: array
+            items:
+                type: integer
+        CardList:
+            type: array
+            items:
+                type: integer
+        ProgressTokenList:
+            type: array
+            items:
+                type: integer
+        Card:
+            type: object
+            required:
+                - id
+                - group
+            properties:
+                id:
+                    type: integer
+                group:
+                    type: integer
+                cost:
+                    type: object
+                chain:
+                    type: integer
+                points:
+                    type: integer
+                power:
+                    type: integer
+
+        Token:
+            type: object
+            required:
+                - value
+                - ttl
+            properties:
+                value:
+                    type: string
+                    description: secret string
+                ttl:
+                    type: integer
+                    description: ttl in seconds
+        RoomOptions:
+            type: object
+            properties:
+                fast:
+                    type: boolean
+                    description: Decrease time of moves
+                minRating:
+                    type: integer
+                    description: Limitation (rate >= x) who can join
+                enemy:
+                    type: string
+                    description: Player nickname who can join
+    securitySchemes:
+        JWT:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+    responses:
+        UnauthorizedError:
+            description: Token is mission or invalid

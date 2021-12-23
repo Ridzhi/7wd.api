@@ -1,0 +1,46 @@
+version: '3.9'
+services:
+    openapi_dev:
+        image: swaggerapi/swagger-ui
+        container_name: swd_openapi_dev
+        volumes:
+            - ./docs/openapi:/spec
+        environment:
+            SWAGGER_JSON: '/spec/openapi.yaml'
+        ports:
+            - 8008:8080
+
+    db_pg_dev:
+        container_name: swd_db_pg_dev
+        image: postgres
+        restart: always
+        volumes:
+            - swdpgdata:/var/lib/postgresql/data/
+        environment:
+            POSTGRES_USER: ${SWD_DB_PG_USER}
+            POSTGRES_PASSWORD: ${SWD_DB_PG_PASSWORD}
+            POSTGRES_DB: ${SWD_DB_PG_DBNAME}
+        ports:
+            - ${SWD_DB_PG_PORT}:5432
+
+    db_redis_dev:
+        container_name: swd_db_redis_dev
+        image: swd_db_redis
+        restart: always
+        build:
+            context: deployments/dev/docker/db_redis
+        ports:
+            - ${SWD_DB_REDIS_PORT}:6379
+
+    mailer_dev:
+        container_name: swd_mailer_dev
+        image: schickling/mailcatcher
+        ports: [ 1025, 1080 ]
+
+networks:
+    default:
+        name: swd_network
+        external: true
+
+volumes:
+    swdpgdata:

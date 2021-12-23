@@ -1,0 +1,31 @@
+doctrine:
+    dbal:
+        dbname: '%env(resolve:SWD_DB_PG_DBNAME)%'
+        host: '%env(resolve:SWD_DB_PG_HOST)%'
+        port: '%env(resolve:SWD_DB_PG_PORT)%'
+        user: '%env(resolve:SWD_DB_PG_USER)%'
+        password: '%env(resolve:SWD_DB_PG_PASSWORD)%'
+        driver: 'pdo_pgsql'
+        types:
+            datetime_immutable: \Carbon\Doctrine\DateTimeImmutableType
+            datetime: \Carbon\Doctrine\DateTimeType
+            #            d2 type implementation
+            citext: App\Infra\Dbal\CitextType
+        mapping_types:
+            #            db type => d2 type
+            citext: citext
+
+        # IMPORTANT: You MUST configure your server version,
+        # either here or in the DATABASE_URL env var (see .env file)
+        #server_version: '13'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Domain'
+                prefix: 'App\Domain'
+                alias: App

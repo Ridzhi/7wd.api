@@ -1,0 +1,7 @@
+framework:
+    mailer:
+        envelope:
+            sender: 'bot@7wd.online'
+        headers:
+            from: 'Bot <bot@7wd.online>'
+        dsn: '%env(MAILER_DSN)%'
