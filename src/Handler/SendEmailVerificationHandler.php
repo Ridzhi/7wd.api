@@ -3,8 +3,6 @@
 namespace App\Handler;
 
 use App\Contract\ConfirmationCodeFactoryInterface;
-use App\Contract\EmailVerificationRepositoryInterface;
-use App\Contract\PlayerRepositoryInterface;
 use App\Contract\VerificationEmailFactoryInterface;
 use App\Domain\EmailVerification;
 use App\Domain\EmailVerificationRepository;
@@ -62,7 +60,7 @@ class SendEmailVerificationHandler
                 }
 
                 // if expired, reset block
-                $emailVerification->setBlockedUntil(null);
+                $emailVerification->setBlockedUntil();
                 $emailVerification->setAttempts(0);
             }
 
