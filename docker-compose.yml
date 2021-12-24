@@ -35,8 +35,9 @@ services:
     mailer_dev:
         container_name: swd_mailer_dev
         image: schickling/mailcatcher
-        ports: [ 1025, 1080 ]
-
+        ports:
+            - "1080:1080"
+            - "${SWD_MAILER_PORT}:1025"
 networks:
     default:
         name: swd_network
