@@ -26,10 +26,10 @@ class Game
     private int $guest_rating;
 
     #[ORM\Column(type: 'string', length: 15, nullable: true)]
-    private string $winner;
+    private ?string $winner;
 
     #[ORM\Column(type: 'smallint', nullable: true)]
-    private Victory $victory;
+    private ?int $victory;
 
     #[ORM\Column(type: 'json',options: ['jsonb' => true])]
     private array $moves = [];
@@ -107,14 +107,19 @@ class Game
 
     public function getVictory(): ?Victory
     {
-        return $this->victory;
+        return Victory::from($this->victory);
     }
 
     public function setVictory(?Victory $victory): self
     {
-        $this->victory = $victory;
+        $this->victory = $victory->value;
 
         return $this;
+    }
+
+    public function getMoves(): array
+    {
+        return $this->moves;
     }
 
     public function getStartedAt(): CarbonImmutable
@@ -139,5 +144,12 @@ class Game
         $this->finished_at = $finished_at;
 
         return $this;
+    }
+
+    public function move(ActionInterface $move)
+    {
+        $move->update();
+
+        $this->moves[] = $move;
     }
 }

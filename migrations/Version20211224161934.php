@@ -7,7 +7,10 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20211224134646 extends AbstractMigration
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+final class Version20211224161934 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,6 +28,8 @@ final class Version20211224134646 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP SEQUENCE game_id_seq CASCADE');
         $this->addSql('DROP TABLE game');
     }

@@ -15,7 +15,7 @@ enum Victory: int implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): int
+    public function jsonSerialize(): mixed
     {
         return $this->value;
     }
