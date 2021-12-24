@@ -2,7 +2,7 @@
 
 namespace App\Error;
 
-class EmailAlreadyInUseError extends Base
+class EmailAlreadyInUseError extends Error
 {
     public function __construct(string $email)
     {

@@ -2,7 +2,7 @@
 
 namespace App\Error;
 
-class MaxAttemptsRegistrationReachedError extends Base
+class MaxAttemptsRegistrationReachedError extends Error
 {
     public function __construct(string $email)
     {

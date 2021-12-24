@@ -2,7 +2,7 @@
 
 namespace App\Infra\EventListener;
 
-use App\Error\Base;
+use App\Error\Error;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ class ErrorListener
         $message = '';
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
 
-        if ($error instanceof Base) {
+        if ($error instanceof Error) {
             $message = $error->getMessage();
             $status = Response::HTTP_BAD_REQUEST;
         } elseif ($error instanceof HttpException) {

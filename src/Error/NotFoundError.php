@@ -2,7 +2,7 @@
 
 namespace App\Error;
 
-class NotFoundError extends Base
+class NotFoundError extends Error
 {
     public function __construct($key, string $subject)
     {

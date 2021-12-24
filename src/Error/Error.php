@@ -4,7 +4,7 @@ namespace App\Error;
 
 use Exception;
 
-class Base extends Exception
+class Error extends Exception
 {
     /**
      * Must be logged

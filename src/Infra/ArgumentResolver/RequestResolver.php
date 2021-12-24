@@ -2,7 +2,12 @@
 
 namespace App\Infra\ArgumentResolver;
 
+use App\Infra\Http\Request\CheckEmailVerificationRequest;
+use App\Infra\Http\Request\CreateRoomRequest;
+use App\Infra\Http\Request\RefreshSessionRequest;
 use App\Infra\Http\Request\SendEmailVerificationRequest;
+use App\Infra\Http\Request\SigninRequest;
+use App\Infra\Http\Request\SignupRequest;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -13,7 +18,12 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RequestResolver implements ArgumentValueResolverInterface
 {
     private array $supported = [
+        CheckEmailVerificationRequest::class => true,
+        CreateRoomRequest::class => true,
+        RefreshSessionRequest::class => true,
         SendEmailVerificationRequest::class => true,
+        SigninRequest::class => true,
+        SignupRequest::class => true,
     ];
 
     public function __construct(

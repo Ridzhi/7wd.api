@@ -2,7 +2,7 @@
 
 namespace App\Error;
 
-class InvalidCredentialsError extends Base
+class InvalidCredentialsError extends Error
 {
     public function __construct()
     {
