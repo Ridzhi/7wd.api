@@ -25,9 +25,26 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+    App\Infra\Http\:
+        resource: '../src/Infra/Http/'
+        exclude:
+            - '../src/Infra/Http/Request/'
+        tags:
+            - { name: controller.service_arguments }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Infra\ArgumentResolver\RequestResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }
 
     App\Infra\EventListener\ErrorListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    app.swd_redis.provider:
+        class: Redis
+        factory: [ 'Symfony\Component\Cache\Adapter\RedisAdapter', 'createConnection' ]
+        arguments:
+            - 'redis://localhost:%env(SWD_DB_REDIS_PORT)%'

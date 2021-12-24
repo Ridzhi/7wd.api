@@ -2,6 +2,7 @@
 
 namespace App\Infra\ArgumentResolver;
 
+use App\Infra\Http\Request\SendEmailVerificationRequest;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RequestResolver implements ArgumentValueResolverInterface
 {
     private array $supported = [
-
+        SendEmailVerificationRequest::class => true,
     ];
 
     public function __construct(

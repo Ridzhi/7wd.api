@@ -1,0 +1,6 @@
+POST https://7wd.online.local/api/email-verification
+Content-Type: application/json
+
+{
+  "email": "player1@gmail.com"
+}
