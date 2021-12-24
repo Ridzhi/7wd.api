@@ -6,7 +6,3 @@ framework:
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             async: 'redis://localhost:%env(SWD_DB_REDIS_PORT)%/messages'
-
-        routing:
-            # Route your messages to the transports
-            App\Infra\Messenger\SendEmailMessage: async
