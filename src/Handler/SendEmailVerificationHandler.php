@@ -7,6 +7,8 @@ use App\Contract\EmailVerificationRepositoryInterface;
 use App\Contract\PlayerRepositoryInterface;
 use App\Contract\VerificationEmailFactoryInterface;
 use App\Domain\EmailVerification;
+use App\Domain\EmailVerificationRepository;
+use App\Domain\PlayerRepository;
 use App\Error\EmailAlreadyInUseError;
 use App\Error\MaxAttemptsRegistrationReachedError;
 use App\Infra\Messenger\SendEmailMessage;
@@ -18,8 +20,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 class SendEmailVerificationHandler
 {
     public function __construct(
-        private PlayerRepositoryInterface $playerRepository,
-        private EmailVerificationRepositoryInterface $emailVerificationRepository,
+        private PlayerRepository $playerRepository,
+        private EmailVerificationRepository $emailVerificationRepository,
         private ConfirmationCodeFactoryInterface $codeFactory,
         private VerificationEmailFactoryInterface $emailFactory,
         private EntityManagerInterface $em,

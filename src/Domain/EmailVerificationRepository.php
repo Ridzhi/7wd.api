@@ -2,7 +2,6 @@
 
 namespace App\Domain;
 
-use App\Contract\EmailVerificationRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method EmailVerification[]    findAll()
  * @method EmailVerification[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EmailVerificationRepository extends ServiceEntityRepository implements EmailVerificationRepositoryInterface
+class EmailVerificationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

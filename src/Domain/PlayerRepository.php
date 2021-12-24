@@ -2,7 +2,6 @@
 
 namespace App\Domain;
 
-use App\Contract\PlayerRepositoryInterface;
 use App\Error\NotFoundError;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -13,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Player[]    findAll()
  * @method Player[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PlayerRepository extends ServiceEntityRepository implements PlayerRepositoryInterface
+class PlayerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
