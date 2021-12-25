@@ -9,12 +9,14 @@ class CreateRoomRequest
 {
     private ?bool $fast;
 
-    #[Constraints\LessThanOrEqual(value: 9999)]
+    #[
+        Constraints\Positive,
+        Constraints\LessThanOrEqual(value: 9999)
+    ]
     private ?int $minRating;
 
     #[Check\Nickname]
     private ?string $enemy;
-
 
     public function __construct(array $params)
     {

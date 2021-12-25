@@ -22,7 +22,7 @@ class RoomRepository
     /**
      * @throws RoomError
      */
-    public function add(Room $room): void
+    public function persist(Room $room): void
     {
         $this->rdb->multi();
 

@@ -47,7 +47,7 @@ class CreateRoomHandler
         }
 
         $room = new Room($passport->getNickname(), $roomOptions);
-        $this->roomRepository->add($room);
+        $this->roomRepository->persist($room);
 
         $this->bus->dispatch(new NewRoomMessage($room));
 

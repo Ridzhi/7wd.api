@@ -21,6 +21,10 @@ class NicknameValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Nickname::class);
         }
 
+        if ($value === null || $value === '') {
+            return;
+        }
+
         if (!is_string($value)) {
             throw new UnexpectedValueException($value, 'string');
         }

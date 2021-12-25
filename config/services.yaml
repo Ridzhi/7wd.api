@@ -54,7 +54,12 @@ services:
     App\Adapter\CentrifugoClientFactory: ~
 
     phpcent\Client:
-        factory: ['@App\Adapter\CentrifugoClientFactory', 'factory']
+        factory: [ '@App\Adapter\CentrifugoClientFactory', 'factory' ]
         arguments:
             $url: '%env(SWD_CENTRIFUGO_API_ENDPOINT)%'
             $apikey: '%env(SWD_CENTRIFUGO_API_KEY)%'
+
+    App\Infra\Security\PassportProvider: ~
+
+    App\Domain\Passport:
+        factory: [ '@App\Infra\Security\PassportProvider', 'factory' ]
