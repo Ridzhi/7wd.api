@@ -11,8 +11,6 @@ class PingEndpoint
 {
     public function __invoke(): Response
     {
-        $a = 5;
-
         return new JsonResponse([
             'ping' => 'pong',
         ]);
