@@ -48,3 +48,8 @@ services:
         factory: [ 'Symfony\Component\Cache\Adapter\RedisAdapter', 'createConnection' ]
         arguments:
             - 'redis://localhost:%env(SWD_DB_REDIS_PORT)%'
+
+    phpcent\Client:
+        arguments:
+            $url: '%env(SWD_CENTRIFUGO_API_ENDPOINT)%'
+            $apikey: '%env(SWD_CENTRIFUGO_API_KEY)%'
