@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infra\Messenger;
+namespace App\Infra\Centrifugo;
 
 enum Channel: string
 {

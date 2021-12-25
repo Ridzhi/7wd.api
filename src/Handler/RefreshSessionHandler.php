@@ -7,6 +7,7 @@ use App\Domain\SessionRepository;
 use App\Error\InvalidCredentialsError;
 use App\Error\NotFoundError;
 use App\Error\SecurityError;
+use Psr\Cache\InvalidArgumentException;
 
 class RefreshSessionHandler
 {
@@ -19,9 +20,10 @@ class RefreshSessionHandler
     }
 
     /**
-     * @throws SecurityError
-     * @throws NotFoundError
      * @throws InvalidCredentialsError
+     * @throws NotFoundError
+     * @throws SecurityError
+     * @throws InvalidArgumentException
      */
     public function __invoke(string $fingerprint, string $refreshToken): array
     {

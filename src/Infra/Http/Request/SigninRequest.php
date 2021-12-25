@@ -14,7 +14,7 @@ class SigninRequest
 
     #[
         Constraints\NotBlank(message: 'fingerprint is required'),
-        Constraints\Uuid(message: 'fingerprint invalid format'),
+        Constraints\Uuid(message: 'invalid browser fingerprint', strict: false),
     ]
     private ?string $fingerprint;
 

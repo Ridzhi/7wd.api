@@ -33,6 +33,9 @@ class PlayerRepository extends ServiceEntityRepository
 //        $this->_em->flush();
 //    }
 
+    /**
+     * @throws NotFoundError
+     */
     public function get(int $id): Player
     {
         return $this->find($id) ?? throw new NotFoundError($id, 'player');

@@ -8,7 +8,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         public:
-            pattern: ^/(ping|email\-verification|session|signup|signin)$
+            pattern: ^/(ping|email\-verification|session|signup|signin|config)$
             security: false
         main:
             lazy: true

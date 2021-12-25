@@ -15,6 +15,7 @@ services:
             $tokenSecret: '%env(SWD_TOKEN_SECRET)%'
             $accessTokenTtl: '%env(duration:SWD_ACCESS_TOKEN_TTL)%'
             $refreshTokenTtl: '%env(duration:SWD_REFRESH_TOKEN_TTL)%'
+            $rdb: '@app.swd_redis.provider'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -49,7 +50,11 @@ services:
         arguments:
             - 'redis://localhost:%env(SWD_DB_REDIS_PORT)%'
 
+
+    App\Adapter\CentrifugoClientFactory: ~
+
     phpcent\Client:
+        factory: ['@App\Adapter\CentrifugoClientFactory', 'factory']
         arguments:
             $url: '%env(SWD_CENTRIFUGO_API_ENDPOINT)%'
             $apikey: '%env(SWD_CENTRIFUGO_API_KEY)%'

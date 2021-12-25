@@ -38,6 +38,20 @@ services:
         ports:
             - "1080:1080"
             - "${SWD_MAILER_PORT}:1025"
+
+    centrifugo_dev:
+        container_name: swd_centrifugo_dev
+        image: centrifugo/centrifugo:latest
+        volumes:
+            - ./config/centrifugo/centrifugo.json:/centrifugo/config.json
+        command: centrifugo -c config.json
+        ports:
+            - 8000:8000
+        ulimits:
+            nofile:
+                soft: 65535
+                hard: 65535
+
 networks:
     default:
         name: swd_network
