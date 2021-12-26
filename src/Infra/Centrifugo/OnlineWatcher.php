@@ -13,7 +13,7 @@ class OnlineWatcher
     }
 
     /**
-     * @return string[]
+     * @return string[] List of nicknames
      */
     public function watch(): array
     {

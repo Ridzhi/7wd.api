@@ -15,7 +15,7 @@ services:
             $tokenSecret: '%env(SWD_TOKEN_SECRET)%'
             $accessTokenTtl: '%env(duration:SWD_ACCESS_TOKEN_TTL)%'
             $refreshTokenTtl: '%env(duration:SWD_REFRESH_TOKEN_TTL)%'
-            $rdb: '@app.swd_redis.provider'
+            $redis: '@app.swd_redis.provider'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:

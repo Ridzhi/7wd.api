@@ -5,7 +5,6 @@ namespace App\Infra\Http;
 use App\Domain\RoomRepository;
 use App\Infra\Centrifugo\OnlineWatcher;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,7 +16,7 @@ class GetLobbyEndpoint extends AbstractController
         OnlineWatcher  $onlineWatcher,
     ): Response
     {
-        return new JsonResponse([
+        return $this->json([
             'rooms' => $roomRepository->findAll(),
             'online' => $onlineWatcher->watch(),
         ]);

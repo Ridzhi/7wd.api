@@ -13,7 +13,7 @@ class RoomRepository
     private const KEY_LIST = 'rooms';
 
     public function __construct(
-        private Redis               $rdb,
+        private Redis               $redis,
         private SerializerInterface $serializer,
     )
     {
@@ -24,26 +24,26 @@ class RoomRepository
      */
     public function persist(Room $room): void
     {
-        $this->rdb->multi();
+        $this->redis->multi();
 
-        $this->rdb->sAdd(self::KEY_LIST, $room->getHost());
+        $this->redis->sAdd(self::KEY_LIST, $room->getHost());
 
-        $this->rdb->set(
+        $this->redis->set(
             $this->kItem($room->getHost()),
             $this->serializer->serialize($room, 'json'),
         );
 
-        [$sAdd, $set] = $this->rdb->exec();
+        [$sAdd, $set] = $this->redis->exec();
 
         // @see https://github.com/phpredis/phpredis/issues/2002
         if ($sAdd === false || $sAdd === 0) {
-            $this->rdb->discard();
+            $this->redis->discard();
 
             throw new RoomError('one room per player');
         }
 
         if ($set !== true) {
-            $this->rdb->discard();
+            $this->redis->discard();
 
             throw new RuntimeException();
         }
@@ -54,7 +54,7 @@ class RoomRepository
      */
     public function update(Room $room): void
     {
-        $this->rdb->set(
+        $this->redis->set(
             $this->kItem($room->getHost()),
             $this->serializer->serialize($room, 'json'),
             ['xx'],
@@ -67,9 +67,9 @@ class RoomRepository
      */
     public function remove(string $host): void
     {
-        $ok1 = $this->rdb->sRem(self::KEY_LIST, $host) > 0;
+        $ok1 = $this->redis->sRem(self::KEY_LIST, $host) > 0;
 
-        $ok2 = $this->rdb->del($this->kItem($host)) > 0;
+        $ok2 = $this->redis->del($this->kItem($host)) > 0;
 
         $ok1 && $ok2
             ?: throw new NotFoundError($host, 'room');
@@ -77,7 +77,7 @@ class RoomRepository
 
     public function find(string $host): ?Room
     {
-        $room = $this->rdb->get($this->kItem($host));
+        $room = $this->redis->get($this->kItem($host));
 
         if ($room === false) {
             return null;
@@ -106,7 +106,7 @@ class RoomRepository
 
     public function findHosts(): array
     {
-        return $this->rdb->sMembers(self::KEY_LIST);
+        return $this->redis->sMembers(self::KEY_LIST);
     }
 
     private function kItem(string $host): string
