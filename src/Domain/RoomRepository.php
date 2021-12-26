@@ -75,6 +75,14 @@ class RoomRepository
             ?: throw new NotFoundError($host, 'room');
     }
 
+    /**
+     * @throws NotFoundError
+     */
+    public function get(string $host): Room
+    {
+        return $this->find($host) ?? throw new NotFoundError($host, 'room');
+    }
+
     public function find(string $host): ?Room
     {
         $room = $this->redis->get($this->kItem($host));

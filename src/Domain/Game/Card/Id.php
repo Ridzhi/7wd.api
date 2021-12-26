@@ -2,9 +2,7 @@
 
 namespace App\Domain\Game\Card;
 
-use JsonSerializable;
-
-enum Id: int implements JsonSerializable
+enum Id: int
 {
     case Null = 0;
 
@@ -84,9 +82,4 @@ enum Id: int implements JsonSerializable
     case ScientistsGuild = 404;
     case MoneyLendersGuild = 405;
     case TacticiansGuild = 406;
-
-    public function jsonSerialize(): int
-    {
-        return $this->value;
-    }
 }

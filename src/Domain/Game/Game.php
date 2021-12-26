@@ -117,6 +117,13 @@ class Game
         return $this;
     }
 
+    public function setMoves(array $moves): self
+    {
+        $this->moves = $moves;
+
+        return $this;
+    }
+
     public function getMoves(): array
     {
         return $this->moves;
@@ -146,9 +153,9 @@ class Game
         return $this;
     }
 
-    public function move(ActionInterface $move)
+    public function move(MutatorInterface $move)
     {
-        $move->update();
+        $move->mutate();
 
         $this->moves[] = $move;
     }

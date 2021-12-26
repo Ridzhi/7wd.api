@@ -4,6 +4,16 @@ namespace App\Domain\Game\Move;
 
 enum Id: int
 {
-    case BurnCard = 1;
-    case ConstructCard = 2;
+    case Prepare = 1;
+    case PickWonder = 2;
+    case PickBoardToken = 3;
+    case ConstructCard = 4;
+    case ConstructWonder = 5;
+    case DiscardCard = 6;
+    case SelectWhoStartsTheNextAge = 7;
+    case BurnCard = 8;
+    case PickRandomToken = 9;
+    case PickTopLineCard = 10;
+    case PickDiscardedCard = 11;
+    case PickReturnedCards = 12;
 }
