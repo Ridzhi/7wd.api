@@ -7,11 +7,11 @@ class Room
     /**
      * Not null if game started
      */
-    private ?int $gameId;
+    private ?int $gameId = null;
 
     private string $host;
 
-    private ?string $guest;
+    private ?string $guest = null;
 
     private RoomOptions $options;
 
