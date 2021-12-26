@@ -4,6 +4,8 @@ namespace App\Infra\ArgumentResolver;
 
 use App\Infra\Http\Request\CheckEmailVerificationRequest;
 use App\Infra\Http\Request\CreateRoomRequest;
+use App\Infra\Http\Request\JoinToRoomRequest;
+use App\Infra\Http\Request\LeaveRoomRequest;
 use App\Infra\Http\Request\RefreshSessionRequest;
 use App\Infra\Http\Request\SendEmailVerificationRequest;
 use App\Infra\Http\Request\SigninRequest;
@@ -20,6 +22,8 @@ class RequestResolver implements ArgumentValueResolverInterface
     private array $supported = [
         CheckEmailVerificationRequest::class => true,
         CreateRoomRequest::class => true,
+        JoinToRoomRequest::class => true,
+        LeaveRoomRequest::class => true,
         RefreshSessionRequest::class => true,
         SendEmailVerificationRequest::class => true,
         SigninRequest::class => true,

@@ -6,11 +6,12 @@ use App\Domain\Passport;
 use App\Error\NotFoundError;
 use App\Error\RoomError;
 use App\Handler\LeaveRoomHandler;
+use App\Infra\Http\Request\LeaveRoomRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/room/{host}/leave', methods: ['POST'])]
+#[Route('/room/leave', methods: ['POST'])]
 class LeaveRoomEndpoint
 {
     /**
@@ -18,12 +19,12 @@ class LeaveRoomEndpoint
      * @throws RoomError
      */
     public function __invoke(
-        string           $host,
+        LeaveRoomRequest $request,
         Passport         $passport,
         LeaveRoomHandler $leaveRoomHandler,
     ): Response
     {
-        $leaveRoomHandler($passport, $host);
+        $leaveRoomHandler($passport, $request->getHost());
 
         return new JsonResponse();
     }

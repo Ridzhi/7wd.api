@@ -6,11 +6,12 @@ use App\Domain\Passport;
 use App\Error\NotFoundError;
 use App\Error\RoomError;
 use App\Handler\JoinToRoomHandler;
+use App\Infra\Http\Request\JoinToRoomRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/room/{host}/join', methods: ['POST'])]
+#[Route('/room/join', methods: ['POST'])]
 class JoinToRoomEndpoint
 {
     /**
@@ -18,12 +19,12 @@ class JoinToRoomEndpoint
      * @throws RoomError
      */
     public function __invoke(
-        string            $host,
+        JoinToRoomRequest $request,
         Passport          $passport,
         JoinToRoomHandler $joinToRoomHandler,
     ): Response
     {
-        $joinToRoomHandler($passport, $host);
+        $joinToRoomHandler($passport, $request->getHost());
 
         return new JsonResponse();
     }
