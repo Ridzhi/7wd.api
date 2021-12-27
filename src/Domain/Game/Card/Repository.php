@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpNamedArgumentsWithChangedOrderInspection */
 
 namespace App\Domain\Game\Card;
 
@@ -300,7 +300,10 @@ class Repository
                 id: Id::Forum,
                 age: Age::II,
                 type: Type::Commercial,
-                cost: new Cost(coins: 3, clay: 1),
+                cost: new Cost(
+                    coins: 3,
+                    clay: 1,
+                ),
                 effects: [
                     new Discounter(new Discount(
                         Context::Global,
@@ -315,7 +318,11 @@ class Repository
                 id: Id::Caravansery,
                 age: Age::II,
                 type: Type::Commercial,
-                cost: new Cost(coins: 2, glass: 1, papyrus: 1),
+                cost: new Cost(
+                    coins: 2,
+                    glass: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Discounter(new Discount(
                         Context::Global,
@@ -341,7 +348,10 @@ class Repository
                 id: Id::CourtHouse,
                 age: Age::II,
                 type: Type::Civilian,
-                cost: new Cost(wood: 2, glass: 1),
+                cost: new Cost(
+                    wood: 2,
+                    glass: 1,
+                ),
                 effects: [
                     new Points(5),
                 ],
@@ -350,7 +360,10 @@ class Repository
                 id: Id::HorseBreeders,
                 age: Age::II,
                 type: Type::Military,
-                cost: new Cost(clay: 1, wood: 1),
+                cost: new Cost(
+                    clay: 1,
+                    wood: 1,
+                ),
                 effects: [
                     new Military(1),
                 ],
@@ -368,7 +381,11 @@ class Repository
                 id: Id::ArcheryRange,
                 age: Age::II,
                 type: Type::Military,
-                cost: new Cost(stone: 1, wood: 1, papyrus: 1),
+                cost: new Cost(
+                    stone: 1,
+                    wood: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Military(2),
                     new Chain(Id::SiegeWorkshop),
@@ -378,7 +395,10 @@ class Repository
                 id: Id::ParadeGround,
                 age: Age::II,
                 type: Type::Military,
-                cost: new Cost(clay: 2, glass: 1),
+                cost: new Cost(
+                    clay: 2,
+                    glass: 1,
+                ),
                 effects: [
                     new Military(2),
                     new Chain(Id::Circus),
@@ -388,7 +408,11 @@ class Repository
                 id: Id::Library,
                 age: Age::II,
                 type: Type::Science,
-                cost: new Cost(stone: 1, wood: 1, glass: 1),
+                cost: new Cost(
+                    stone: 1,
+                    wood: 1,
+                    glass: 1,
+                ),
                 effects: [
                     new Points(2),
                     new Science(Symbol::Writing),
@@ -398,7 +422,10 @@ class Repository
                 id: Id::Dispensary,
                 age: Age::II,
                 type: Type::Science,
-                cost: new Cost(clay: 2, stone: 1),
+                cost: new Cost(
+                    clay: 2,
+                    stone: 1,
+                ),
                 effects: [
                     new Points(2),
                     new Science(Symbol::Mortar),
@@ -408,7 +435,10 @@ class Repository
                 id: Id::School,
                 age: Age::II,
                 type: Type::Science,
-                cost: new Cost(wood: 1, papyrus: 2),
+                cost: new Cost(
+                    wood: 1,
+                    papyrus: 2,
+                ),
                 effects: [
                     new Points(1),
                     new Science(Symbol::Wheel),
@@ -419,7 +449,10 @@ class Repository
                 id: Id::Laboratory,
                 age: Age::II,
                 type: Type::Science,
-                cost: new Cost(wood: 1, glass: 2),
+                cost: new Cost(
+                    wood: 1,
+                    glass: 2,
+                ),
                 effects: [
                     new Points(1),
                     new Science(Symbol::Compass),
@@ -440,7 +473,10 @@ class Repository
                 id: Id::Temple,
                 age: Age::II,
                 type: Type::Civilian,
-                cost: new Cost(wood: 1, papyrus: 1),
+                cost: new Cost(
+                    wood: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Points(4),
                     new Chain(Id::Pantheon),
@@ -459,7 +495,10 @@ class Repository
                 id: Id::Rostrum,
                 age: Age::II,
                 type: Type::Civilian,
-                cost: new Cost(stone: 1, wood: 1),
+                cost: new Cost(
+                    stone: 1,
+                    wood: 1,
+                ),
                 effects: [
                     new Points(5),
                     new Chain(Id::Senate),
@@ -480,7 +519,10 @@ class Repository
                 id: Id::Arsenal,
                 age: Age::III,
                 type: Type::Military,
-                cost: new Cost(clay: 3, wood: 2),
+                cost: new Cost(
+                    clay: 3,
+                    wood: 2,
+                ),
                 effects: [
                     new Military(3),
                 ],
@@ -498,7 +540,11 @@ class Repository
                 id: Id::Academy,
                 age: Age::III,
                 type: Type::Science,
-                cost: new Cost(stone: 1, wood: 1, glass: 2),
+                cost: new Cost(
+                    stone: 1,
+                    wood: 1,
+                    glass: 2,
+                ),
                 effects: [
                     new Points(3),
                     new Science(Symbol::Sundial),
@@ -508,7 +554,11 @@ class Repository
                 id: Id::Study,
                 age: Age::III,
                 type: Type::Science,
-                cost: new Cost(wood: 2, glass: 1, papyrus: 1),
+                cost: new Cost(
+                    wood: 2,
+                    glass: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Points(3),
                     new Science(Symbol::Sundial),
@@ -530,7 +580,11 @@ class Repository
                 id: Id::Port,
                 age: Age::III,
                 type: Type::Commercial,
-                cost: new Cost(wood: 1, glass: 1, papyrus: 1),
+                cost: new Cost(
+                    wood: 1,
+                    glass: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Points(3),
                     new CoinsFor(Bonus::RawMaterials, 2),
@@ -541,7 +595,10 @@ class Repository
                 id: Id::Armory,
                 age: Age::III,
                 type: Type::Commercial,
-                cost: new Cost(stone: 2, glass: 1),
+                cost: new Cost(
+                    stone: 2,
+                    glass: 1,
+                ),
                 effects: [
                     new Points(3),
                     new CoinsFor(Bonus::Military, 1),
@@ -552,7 +609,12 @@ class Repository
                 id: Id::Palace,
                 age: Age::III,
                 type: Type::Civilian,
-                cost: new Cost(clay: 1, stone: 1, wood: 1, glass: 2),
+                cost: new Cost(
+                    clay: 1,
+                    stone: 1,
+                    wood: 1,
+                    glass: 2,
+                ),
                 effects: [
                     new Points(7),
                 ],
@@ -561,7 +623,10 @@ class Repository
                 id: Id::TownHall,
                 age: Age::III,
                 type: Type::Civilian,
-                cost: new Cost(stone: 3, wood: 2),
+                cost: new Cost(
+                    stone: 3,
+                    wood: 2,
+                ),
                 effects: [
                     new Points(7),
                 ],
@@ -570,7 +635,10 @@ class Repository
                 id: Id::Obelisk,
                 age: Age::III,
                 type: Type::Civilian,
-                cost: new Cost(wood: 2, glass: 1),
+                cost: new Cost(
+                    wood: 2,
+                    glass: 1,
+                ),
                 effects: [
                     new Points(5),
                 ],
@@ -579,7 +647,11 @@ class Repository
                 id: Id::Fortifications,
                 age: Age::III,
                 type: Type::Military,
-                cost: new Cost(stone: 2, clay: 1, papyrus: 1),
+                cost: new Cost(
+                    stone: 2,
+                    clay: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Military(2),
                 ],
@@ -588,7 +660,10 @@ class Repository
                 id: Id::SiegeWorkshop,
                 age: Age::III,
                 type: Type::Military,
-                cost: new Cost(wood: 3, glass: 1),
+                cost: new Cost(
+                    wood: 3,
+                    glass: 1,
+                ),
                 effects: [
                     new Military(2),
                 ],
@@ -597,7 +672,10 @@ class Repository
                 id: Id::Circus,
                 age: Age::III,
                 type: Type::Military,
-                cost: new Cost(clay: 2, stone: 2),
+                cost: new Cost(
+                    clay: 2,
+                    stone: 2,
+                ),
                 effects: [
                     new Military(2),
                 ],
@@ -606,7 +684,11 @@ class Repository
                 id: Id::University,
                 age: Age::III,
                 type: Type::Science,
-                cost: new Cost(clay: 1, glass: 1, papyrus: 1),
+                cost: new Cost(
+                    clay: 1,
+                    glass: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Points(2),
                     new Science(Symbol::Astrology),
@@ -616,7 +698,10 @@ class Repository
                 id: Id::Observatory,
                 age: Age::III,
                 type: Type::Science,
-                cost: new Cost(stone: 1, papyrus: 2),
+                cost: new Cost(
+                    stone: 1,
+                    papyrus: 2,
+                ),
                 effects: [
                     new Points(2),
                     new Science(Symbol::Astrology),
@@ -626,7 +711,10 @@ class Repository
                 id: Id::Gardens,
                 age: Age::III,
                 type: Type::Civilian,
-                cost: new Cost(clay: 2, wood: 2),
+                cost: new Cost(
+                    clay: 2,
+                    wood: 2,
+                ),
                 effects: [
                     new Points(6),
                 ],
@@ -635,7 +723,11 @@ class Repository
                 id: Id::Pantheon,
                 age: Age::III,
                 type: Type::Civilian,
-                cost: new Cost(clay: 1, wood: 1, papyrus: 2),
+                cost: new Cost(
+                    clay: 1,
+                    wood: 1,
+                    papyrus: 2,
+                ),
                 effects: [
                     new Points(6),
                 ],
@@ -644,7 +736,11 @@ class Repository
                 id: Id::Senate,
                 age: Age::III,
                 type: Type::Civilian,
-                cost: new Cost(clay: 2, stone: 1, papyrus: 1),
+                cost: new Cost(
+                    clay: 2,
+                    stone: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Points(5),
                 ],
@@ -653,7 +749,10 @@ class Repository
                 id: Id::Lighthouse,
                 age: Age::III,
                 type: Type::Commercial,
-                cost: new Cost(clay: 2, glass: 1),
+                cost: new Cost(
+                    clay: 2,
+                    glass: 1,
+                ),
                 effects: [
                     new Points(3),
                     new CoinsFor(Bonus::Commercial, 1),
@@ -664,7 +763,11 @@ class Repository
                 id: Id::Arena,
                 age: Age::III,
                 type: Type::Commercial,
-                cost: new Cost(clay: 1, stone: 1, wood: 1),
+                cost: new Cost(
+                    clay: 1,
+                    stone: 1,
+                    wood: 1,
+                ),
                 effects: [
                     new Points(3),
                     new CoinsFor(Bonus::Wonder, 2),
@@ -675,7 +778,12 @@ class Repository
                 id: Id::MerchantsGuild,
                 age: Age::III,
                 type: Type::Guild,
-                cost: new Cost(clay: 1, wood: 1, glass: 1, papyrus: 1),
+                cost: new Cost(
+                    clay: 1,
+                    wood: 1,
+                    glass: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Guild(Bonus::Commercial, 1, 1),
                 ],
@@ -684,7 +792,12 @@ class Repository
                 id: Id::ShipOwnersGuild,
                 age: Age::III,
                 type: Type::Guild,
-                cost: new Cost(clay: 1, stone: 1, glass: 1, papyrus: 1),
+                cost: new Cost(
+                    clay: 1,
+                    stone: 1,
+                    glass: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Guild(Bonus::Resources, 1, 1),
                 ],
@@ -693,7 +806,12 @@ class Repository
                 id: Id::BuildersGuild,
                 age: Age::III,
                 type: Type::Guild,
-                cost: new Cost(stone: 2, clay: 1, wood: 1, glass: 1),
+                cost: new Cost(
+                    stone: 2,
+                    clay: 1,
+                    wood: 1,
+                    glass: 1,
+                ),
                 effects: [
                     new Guild(Bonus::Wonder, 2, 0),
                 ],
@@ -702,7 +820,11 @@ class Repository
                 id: Id::MagistratesGuild,
                 age: Age::III,
                 type: Type::Guild,
-                cost: new Cost(wood: 2, clay: 1, papyrus: 1),
+                cost: new Cost(
+                    wood: 2,
+                    clay: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Guild(Bonus::Civilian, 1, 1),
                 ],
@@ -711,7 +833,10 @@ class Repository
                 id: Id::ScientistsGuild,
                 age: Age::III,
                 type: Type::Guild,
-                cost: new Cost(clay: 2, wood: 2),
+                cost: new Cost(
+                    clay: 2,
+                    wood: 2,
+                ),
                 effects: [
                     new Guild(Bonus::Science, 1, 1),
                 ],
@@ -720,7 +845,10 @@ class Repository
                 id: Id::MoneyLendersGuild,
                 age: Age::III,
                 type: Type::Guild,
-                cost: new Cost(stone: 2, wood: 2),
+                cost: new Cost(
+                    stone: 2,
+                    wood: 2,
+                ),
                 effects: [
                     new Guild(Bonus::Coin, 1, 0),
                 ],
@@ -729,32 +857,36 @@ class Repository
                 id: Id::TacticiansGuild,
                 age: Age::III,
                 type: Type::Guild,
-                cost: new Cost(stone: 2, clay: 1, papyrus: 1),
+                cost: new Cost(
+                    stone: 2,
+                    clay: 1,
+                    papyrus: 1,
+                ),
                 effects: [
                     new Guild(Bonus::Military, 1, 1),
                 ],
             ),
         ];
 
-        $normal = [
-            Age::I->value => [],
-            Age::II->value => [],
-            Age::III->value => [],
-        ];
-
-        $guilds = [];
-
-        foreach ($this->data as $card) {
-            if ($card->type === Type::Guild) {
-                $guilds[] = $card->id;
-                continue;
-            }
-
-            $normal[$card->age->value][] = $card->id;
-        }
-
-        $this->normal = $normal;
-        $this->guilds = $guilds;
+//        $normal = [
+//            Age::I->value => [],
+//            Age::II->value => [],
+//            Age::III->value => [],
+//        ];
+//
+//        $guilds = [];
+//
+//        foreach ($this->data as $card) {
+//            if ($card->type === Type::Guild) {
+//                $guilds[] = $card->id;
+//                continue;
+//            }
+//
+//            $normal[$card->age->value][] = $card->id;
+//        }
+//
+//        $this->normal = $normal;
+//        $this->guilds = $guilds;
     }
 
     public function get(Id $cid): Card
