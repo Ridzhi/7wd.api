@@ -6,9 +6,10 @@ use App\Domain\Game\MutatorInterface;
 use App\Domain\Game\Effect\Base;
 use App\Domain\Game\Age;
 use App\Domain\Game\Cost;
+use App\Domain\Game\ScorableInterface;
 use App\Domain\Game\State\State;
 
-class Card implements MutatorInterface
+class Card implements MutatorInterface, ScorableInterface
 {
     /**
      * @param Id $id
@@ -34,5 +35,18 @@ class Card implements MutatorInterface
                 $effect->mutate($state);
             }
         }
+    }
+
+    public function getPoints(State $state): int
+    {
+        $points = 0;
+
+        foreach ($this->effects as $effect) {
+            if ($effect instanceof ScorableInterface) {
+                $points += $effect->getPoints($state);
+            }
+        }
+
+        return $points;
     }
 }
