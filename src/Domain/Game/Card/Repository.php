@@ -869,25 +869,5 @@ class Repository
                 ],
             ),
         ];
-
-//        $normal = [
-//            Age::I->value => [],
-//            Age::II->value => [],
-//            Age::III->value => [],
-//        ];
-//
-//        $guilds = [];
-//
-//        foreach ($this->data as $card) {
-//            if ($card->type === Type::Guild) {
-//                $guilds[] = $card->id;
-//                continue;
-//            }
-//
-//            $normal[$card->age->value][] = $card->id;
-//        }
-//
-//        $this->normal = $normal;
-//        $this->guilds = $guilds;
     }
 }

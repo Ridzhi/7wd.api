@@ -218,21 +218,4 @@ class Repository
             ),
         ];
     }
-
-//    /**
-//     * @param Id $wid
-//     * @return Wonder
-//     */
-//    public function get(Id $wid): Wonder
-//    {
-//        return $this->data[$wid->value];
-//    }
-//
-//    /**
-//     * @return Wonder[]
-//     */
-//    public function getAll(): array
-//    {
-//        return $this->data;
-//    }
 }
