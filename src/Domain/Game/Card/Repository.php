@@ -24,14 +24,11 @@ use App\Domain\Game\Symbol;
 class Repository
 {
     /** @var Card[] */
-    private array $storage;
-//    private array $normal;
-    /** @var Id[] */
-//    private array $guilds;
+    private array $data;
 
     public function __construct()
     {
-        $this->storage = [
+        $this->data = [
             Id::LumberYard->value => new Card(
                 id: Id::LumberYard,
                 age: Age::I,
@@ -747,7 +744,7 @@ class Repository
 
         $guilds = [];
 
-        foreach ($this->storage as $card) {
+        foreach ($this->data as $card) {
             if ($card->type === Type::Guild) {
                 $guilds[] = $card->id;
                 continue;
@@ -762,7 +759,7 @@ class Repository
 
     public function get(Id $cid): Card
     {
-        return $this->storage[$cid->value];
+        return $this->data[$cid->value];
     }
 
     /**
@@ -770,7 +767,7 @@ class Repository
      */
     public function getAll(): array
     {
-        return $this->storage;
+        return $this->data;
     }
 
 //    /**

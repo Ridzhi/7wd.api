@@ -2,15 +2,17 @@
 
 namespace App\Domain\Game\Card;
 
+use App\Domain\Game\EffectsSupport;
 use App\Domain\Game\MutatorInterface;
 use App\Domain\Game\Effect\Base;
 use App\Domain\Game\Age;
 use App\Domain\Game\Cost;
 use App\Domain\Game\ScorableInterface;
-use App\Domain\Game\State\State;
 
 class Card implements MutatorInterface, ScorableInterface
 {
+    use EffectsSupport;
+
     /**
      * @param Id $id
      * @param Age $age
@@ -23,30 +25,9 @@ class Card implements MutatorInterface, ScorableInterface
         public readonly Age $age,
         public readonly Type $type,
         public readonly ?Cost $cost = null,
-        public readonly array $effects = [],
+        array  $effects = [],
     )
     {
-    }
-
-    public function mutate(State $state): void
-    {
-        foreach ($this->effects as $effect) {
-            if ($effect instanceof MutatorInterface) {
-                $effect->mutate($state);
-            }
-        }
-    }
-
-    public function getPoints(State $state): int
-    {
-        $points = 0;
-
-        foreach ($this->effects as $effect) {
-            if ($effect instanceof ScorableInterface) {
-                $points += $effect->getPoints($state);
-            }
-        }
-
-        return $points;
+        $this->effects = $effects;
     }
 }
