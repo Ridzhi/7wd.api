@@ -23,8 +23,10 @@ use App\Domain\Game\Symbol;
 
 class Repository
 {
-    /** @var Card[] */
-    private array $data;
+    /**
+     * @var array<Id, Card>
+     */
+    public readonly array $data;
 
     public function __construct()
     {
@@ -888,37 +890,4 @@ class Repository
 //        $this->normal = $normal;
 //        $this->guilds = $guilds;
     }
-
-    public function get(Id $cid): Card
-    {
-        return $this->data[$cid->value];
-    }
-
-    /**
-     * @return Card[]
-     */
-    public function getAll(): array
-    {
-        return $this->data;
-    }
-
-//    /**
-//     * @TODO Move to deck factory
-//     * @return Id[]
-//     * @deprecated
-//     */
-//    public function getGuilds(): array
-//    {
-//        return $this->guilds;
-//    }
-//
-//    /**
-//     * @TODO Move to deck factory
-//     * @return Id[]
-//     * @deprecated
-//     */
-//    public function getByAge(Age $age): array
-//    {
-//        return $this->normal[$age->value];
-//    }
 }

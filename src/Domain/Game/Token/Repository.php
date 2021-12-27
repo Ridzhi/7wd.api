@@ -15,7 +15,7 @@ use App\Domain\Game\Symbol;
 class Repository
 {
     /**
-     * @var Token[]
+     * @var array<Id, Token>
      */
     public readonly array $data;
 

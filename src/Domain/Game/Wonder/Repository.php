@@ -21,7 +21,10 @@ use App\Domain\Game\Resource\Id as Rid;
 
 class Repository
 {
-    private array $data;
+    /**
+     * @var array<Id, Wonder>
+     */
+    public readonly array $data;
 
     public function __construct()
     {
@@ -216,20 +219,20 @@ class Repository
         ];
     }
 
-    /**
-     * @param Id $wid
-     * @return Wonder
-     */
-    public function get(Id $wid): Wonder
-    {
-        return $this->data[$wid->value];
-    }
-
-    /**
-     * @return Wonder[]
-     */
-    public function getAll(): array
-    {
-        return $this->data;
-    }
+//    /**
+//     * @param Id $wid
+//     * @return Wonder
+//     */
+//    public function get(Id $wid): Wonder
+//    {
+//        return $this->data[$wid->value];
+//    }
+//
+//    /**
+//     * @return Wonder[]
+//     */
+//    public function getAll(): array
+//    {
+//        return $this->data;
+//    }
 }
