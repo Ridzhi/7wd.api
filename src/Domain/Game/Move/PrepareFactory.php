@@ -5,7 +5,6 @@ namespace App\Domain\Game\Move;
 use App\Domain\Game\Age;
 use App\Domain\Game\Card\Id as Cid;
 use App\Domain\Game\Card\Repository as CardRepository;
-use App\Domain\Game\Card\Type;
 use App\Domain\Game\Token\Id as Tid;
 use App\Domain\Game\Token\Repository as TokenRepository;
 use App\Domain\Game\Wonder\Id as Wid;
@@ -19,8 +18,6 @@ class PrepareFactory
     private const DECK_LIMIT = 20;
     private const GUILDS_LIMIT = 3;
 
-    private array $cacheCards;
-
     public function __construct(
         private WonderRepository $wonderRepository,
         private TokenRepository  $tokenRepository,
@@ -33,7 +30,6 @@ class PrepareFactory
     {
         list($p1, $p2) = $this->shufflePlayers($p1, $p2);
         $tokens = $this->getTokens();
-        $this->fillCacheCards();
 
         return new Prepare(
             p1: $p1,
@@ -83,41 +79,17 @@ class PrepareFactory
     }
 
     /**
-     * Use to avoid repeating card grouping
-     *
-     * @return void
-     */
-    private function fillCacheCards(): void
-    {
-        $this->cacheCards = [
-            Age::I->value => [],
-            Age::II->value => [],
-            Age::III->value => [],
-            'guilds' => [],
-        ];
-
-        foreach ($this->cardRepository->data as $card) {
-            if ($card->type === Type::Guild) {
-                $this->cacheCards['guilds'][] = $card->id;
-                continue;
-            }
-
-            $this->cacheCards[$card->age->value][] = $card->id;
-        }
-    }
-
-    /**
      * @return array<Cid>
      */
     private function getCards(Age $age): array
     {
-        $cards = $this->cacheCards[$age->value];
+        $cards = $this->cardRepository->getByAge($age);
         shuffle($cards);
 
         switch ($age) {
             case Age::III:
                 $cards = array_slice($cards, 0, self::DECK_LIMIT - self::GUILDS_LIMIT);
-                $guilds = $this->cacheCards['guilds'];
+                $guilds = $this->cardRepository->getGuilds();
                 shuffle($guilds);
                 array_push($cards, ...array_slice($guilds, 0, self::DECK_LIMIT));
                 shuffle($cards);

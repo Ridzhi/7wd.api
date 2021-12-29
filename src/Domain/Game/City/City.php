@@ -5,7 +5,6 @@ namespace App\Domain\Game\City;
 use App\Domain\Game\Bonus;
 use App\Domain\Game\Card\Type;
 use App\Domain\Game\Resource\Storage;
-use App\Domain\Game\Score;
 
 class City
 {

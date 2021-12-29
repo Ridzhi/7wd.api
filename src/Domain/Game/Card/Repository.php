@@ -28,6 +28,8 @@ class Repository
      */
     public readonly array $data;
 
+    private array $cache;
+
     public function __construct()
     {
         $this->data = [
@@ -874,5 +876,48 @@ class Repository
     public function get(Id $card): Card
     {
         return $this->data[$card->value];
+    }
+
+    /**
+     * @return array<Id>
+     */
+    public function getByAge(Age $age): array
+    {
+        $this->cacheIfEmpty();
+
+        return $this->cache[$age->value];
+    }
+
+    /**
+     * @return array<Id>
+     */
+    public function getGuilds(): array
+    {
+        $this->cacheIfEmpty();
+
+        return $this->cache['guilds'];
+    }
+
+    private function cacheIfEmpty(): void
+    {
+        if ($this->cache) {
+            return;
+        }
+
+        $this->cache = [
+            Age::I->value => [],
+            Age::II->value => [],
+            Age::III->value => [],
+            'guilds' => [],
+        ];
+
+        foreach ($this->data as $card) {
+            if ($card->type === Type::Guild) {
+                $this->cache['guilds'][] = $card->id;
+                continue;
+            }
+
+            $this->cache[$card->age->value][] = $card->id;
+        }
     }
 }
