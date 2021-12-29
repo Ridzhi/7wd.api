@@ -22,4 +22,6 @@ class State
 
     public City $me;
     public City $enemy;
+
+    public CardItems $cardItems;
 }
