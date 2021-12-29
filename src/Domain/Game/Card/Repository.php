@@ -870,4 +870,9 @@ class Repository
             ),
         ];
     }
+
+    public function get(Id $card): Card
+    {
+        return $this->data[$card->value];
+    }
 }

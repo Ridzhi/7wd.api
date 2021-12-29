@@ -14,4 +14,5 @@ enum Phase: int
     case PickRandomToken = 7;
     case PickReturnedCards = 8;
     case PickTopLineCard = 9;
+    case Over = 10;
 }
