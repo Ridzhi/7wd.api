@@ -24,10 +24,13 @@ use App\Domain\Game\Symbol;
 class Repository
 {
     /**
-     * @var array<Id, Card>
+     * @var array<int, Card>
      */
     public readonly array $data;
 
+    /**
+     * @var ?array{1: array<int>, 2: array<int>, 3: array<int>, guild: array<int>}
+     */
     private ?array $cache = null;
 
     public function __construct()
@@ -913,11 +916,11 @@ class Repository
 
         foreach ($this->data as $card) {
             if ($card->type === Type::Guild) {
-                $this->cache['guilds'][] = $card->id;
+                $this->cache['guilds'][] = $card->id->value;
                 continue;
             }
 
-            $this->cache[$card->age->value][] = $card->id;
+            $this->cache[$card->age->value][] = $card->id->value;
         }
     }
 }
