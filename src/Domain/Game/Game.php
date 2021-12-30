@@ -155,7 +155,7 @@ class Game
 
     public function move(MutatorInterface $move)
     {
-        $move->mutate();
+//        $move->mutate();
 
         $this->moves[] = $move;
     }

@@ -7,11 +7,11 @@ use App\Domain\Game\Token\Id as Tid;
 use App\Domain\Game\Wonder\Id as Wid;
 
 /**
- * Initial game setup + generate the entire random to reproduce state
+ * Initial game setup + the entire random to reproduce state
  */
 class Prepare
 {
-    public readonly Id $id;
+    public Id $id;
 
     /**
      * @param string $p1

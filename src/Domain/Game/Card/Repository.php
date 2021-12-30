@@ -28,7 +28,7 @@ class Repository
      */
     public readonly array $data;
 
-    private array $cache;
+    private ?array $cache = null;
 
     public function __construct()
     {
