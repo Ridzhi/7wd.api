@@ -16,4 +16,14 @@ enum Id: int
     case PickTopLineCard = 10;
     case PickDiscardedCard = 11;
     case PickReturnedCards = 12;
+
+    /**
+     * @return class-string
+     */
+    public function classname(): string
+    {
+        return match ($this) {
+            self::Prepare => Prepare::class,
+        };
+    }
 }

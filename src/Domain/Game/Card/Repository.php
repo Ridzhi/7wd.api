@@ -29,7 +29,7 @@ class Repository
     public readonly array $data;
 
     /**
-     * @var ?array{1: array<int>, 2: array<int>, 3: array<int>, guild: array<int>}
+     * @var ?array{1: array<int>, 2: array<int>, 3: array<int>, guilds: array<int>}
      */
     private ?array $cache = null;
 
@@ -916,11 +916,11 @@ class Repository
 
         foreach ($this->data as $card) {
             if ($card->type === Type::Guild) {
-                $this->cache['guilds'][] = $card->id->value;
+                $this->cache['guilds'][] = $card->id;
                 continue;
             }
 
-            $this->cache[$card->age->value][] = $card->id->value;
+            $this->cache[$card->age->value][] = $card->id;
         }
     }
 }

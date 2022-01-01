@@ -16,6 +16,7 @@ services:
             $accessTokenTtl: '%env(duration:SWD_ACCESS_TOKEN_TTL)%'
             $refreshTokenTtl: '%env(duration:SWD_REFRESH_TOKEN_TTL)%'
             $redis: '@app.swd_redis.provider'
+            $moveDenormalizer: '@app.move_denormalizer'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -50,6 +51,11 @@ services:
         arguments:
             - 'redis://localhost:%env(SWD_DB_REDIS_PORT)%'
 
+    App\Infra\Serializer\Move\Factory: ~
+
+    app.move_denormalizer:
+        class: Symfony\Component\Serializer\Serializer
+        factory: [ '@App\Infra\Serializer\Move\Factory', 'factory' ]
 
     App\Adapter\CentrifugoClientFactory: ~
 
