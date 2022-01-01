@@ -9,17 +9,15 @@ use App\Domain\Game\Wonder\Id as Wid;
 class DialogItems
 {
     /**
-     * @var array<Wid>
+     * @param array<Wid> $wonders
+     * @param array<Cid> $cards
+     * @param array<Tid> $tokens
      */
-    public array $wonders = [];
-
-    /**
-     * @var array<Cid>
-     */
-    public array $cards = [];
-
-    /**
-     * @var array<Tid>
-     */
-    public array $tokens = [];
+    public function __construct(
+        public array $wonders = [],
+        public array $cards = [],
+        public array $tokens = [],
+    )
+    {
+    }
 }

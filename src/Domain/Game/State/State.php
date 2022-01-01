@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Ignore;
 class State
 {
     public Age $age;
-    public Phase $phase;
+    public Phase $phase = Phase::Null;
     /** @var array<Tid> */
     public array $tokens;
     public City $me;
