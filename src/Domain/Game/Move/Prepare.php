@@ -19,7 +19,7 @@ use App\Domain\Game\Wonder\Id as Wid;
  */
 class Prepare implements MutatorInterface
 {
-    public Id $id;
+    public readonly Id $id;
 
     /**
      * @param string $p1

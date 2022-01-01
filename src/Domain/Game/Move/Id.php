@@ -24,6 +24,7 @@ enum Id: int
     {
         return match ($this) {
             self::Prepare => Prepare::class,
+            self::PickWonder => PickWonder::class,
         };
     }
 }

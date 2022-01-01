@@ -8,30 +8,15 @@ use App\Domain\Game\Move;
 use App\Domain\Game\Token\Id as Tid;
 use App\Domain\Game\Wonder\Id as Wid;
 use App\Infra\Serializer\Move\Normalizer;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @coversDefaultClass \App\Infra\Serializer\Move\Normalizer\Prepare
  */
-class PrepareTest extends KernelTestCase
+class PrepareTest extends AbstractTest
 {
-    /**
-     * @covers ::denormalize
-     * @covers ::supportsDenormalization
-     * @throws ExceptionInterface
-     */
-    public function testDenormalize(): void
+    function factoryMove(): object
     {
-        self::bootKernel();
-
-        $serializer = new Serializer([
-            new Normalizer\Prepare(),
-        ]);
-
-        $orig = new Move\Prepare(
+        return new Move\Prepare(
             p1: 'Player1',
             p2: 'Player2',
             wonders: [
@@ -61,16 +46,15 @@ class PrepareTest extends KernelTestCase
                 ],
             ],
         );
+    }
 
-        // getting doctrine representation
-        $array = static
-            ::getContainer()
-            ->get(SerializerInterface::class)
-            ->normalize($orig);
+    function getMoveClassname(): string
+    {
+        return Move\Prepare::class;
+    }
 
-        $this->assertEquals(
-            $orig,
-            $serializer->denormalize($array, Move\Prepare::class),
-        );
+    function getNormalizerClassname(): string
+    {
+        return Normalizer\Prepare::class;
     }
 }
