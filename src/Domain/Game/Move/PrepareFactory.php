@@ -13,12 +13,6 @@ use App\Domain\Game\Wonder\Repository as WonderRepository;
 
 class PrepareFactory
 {
-    public function __construct(
-        private WonderRepository $wonderRepository,
-    )
-    {
-    }
-
     public function factory(string $p1, string $p2): Prepare
     {
         list($p1, $p2) = $this->shufflePlayers($p1, $p2);
@@ -65,7 +59,7 @@ class PrepareFactory
     private function getWonders(): array
     {
         /** @uses \App\Domain\Game\Wonder\Wonder::$id */
-        $wonders = array_column($this->wonderRepository->data, 'id');
+        $wonders = array_column(WonderRepository::getAll(), 'id');
         shuffle($wonders);
 
         return $wonders;

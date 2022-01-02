@@ -22,200 +22,217 @@ use App\Domain\Game\Resource\Id as Rid;
 class Repository
 {
     /**
-     * @var array<Id, Wonder>
+     * @var array<int, Wonder>
      */
-    public readonly array $data;
+    private static ?array $data = null;
 
-    public function __construct()
+    public static function get(Id $wonder): Wonder
     {
-        $this->data = [
-            Id::TheAppianWay->value => new Wonder(
-                id: Id::TheAppianWay,
-                cost: new Cost(
-                    papyrus: 1,
-                    clay: 2,
-                    stone: 2,
+        return self::getData()[$wonder->value];
+    }
+
+    /**
+     * @return array<int, Wonder>
+     */
+    public static function getAll(): array
+    {
+        return self::getData();
+    }
+
+    private static function getData(): array
+    {
+        if (!self::$data) {
+            self::$data = [
+                Id::TheAppianWay->value => new Wonder(
+                    id: Id::TheAppianWay,
+                    cost: new Cost(
+                        papyrus: 1,
+                        clay: 2,
+                        stone: 2,
+                    ),
+                    effects: [
+                        new Coins(3),
+                        new Fine(3),
+                        new PlayAgain(),
+                        new Points(3),
+                    ],
                 ),
-                effects: [
-                    new Coins(3),
-                    new Fine(3),
-                    new PlayAgain(),
-                    new Points(3),
-                ],
-            ),
-            Id::CircusMaximus->value => new Wonder(
-                id: Id::CircusMaximus,
-                cost: new Cost(
-                    glass: 1,
-                    wood: 1,
-                    stone: 2,
+                Id::CircusMaximus->value => new Wonder(
+                    id: Id::CircusMaximus,
+                    cost: new Cost(
+                        glass: 1,
+                        wood: 1,
+                        stone: 2,
+                    ),
+                    effects: [
+                        new BurnCard(Type::ManufacturedGoods),
+                        new Military(1, false),
+                        new Points(3),
+                    ],
                 ),
-                effects: [
-                    new BurnCard(Type::ManufacturedGoods),
-                    new Military(1, false),
-                    new Points(3),
-                ],
-            ),
-            Id::TheColossus->value => new Wonder(
-                id: Id::TheColossus,
-                cost: new Cost(
-                    glass: 1,
-                    clay: 3,
+                Id::TheColossus->value => new Wonder(
+                    id: Id::TheColossus,
+                    cost: new Cost(
+                        glass: 1,
+                        clay: 3,
+                    ),
+                    effects: [
+                        new Military(2, false),
+                        new Points(3),
+                    ],
                 ),
-                effects: [
-                    new Military(2, false),
-                    new Points(3),
-                ],
-            ),
-            Id::TheGreatLibrary->value => new Wonder(
-                id: Id::TheGreatLibrary,
-                cost: new Cost(
-                    papyrus: 1,
-                    glass: 1,
-                    wood: 3,
+                Id::TheGreatLibrary->value => new Wonder(
+                    id: Id::TheGreatLibrary,
+                    cost: new Cost(
+                        papyrus: 1,
+                        glass: 1,
+                        wood: 3,
+                    ),
+                    effects: [
+                        new PickRandomToken(),
+                        new Points(4),
+                    ],
                 ),
-                effects: [
-                    new PickRandomToken(),
-                    new Points(4),
-                ],
-            ),
-            Id::TheGreatLighthouse->value => new Wonder(
-                id: Id::TheGreatLighthouse,
-                cost: new Cost(
-                    papyrus: 2,
-                    stone: 1,
-                    wood: 1,
+                Id::TheGreatLighthouse->value => new Wonder(
+                    id: Id::TheGreatLighthouse,
+                    cost: new Cost(
+                        papyrus: 2,
+                        stone: 1,
+                        wood: 1,
+                    ),
+                    effects: [
+                        new Discounter(new Discount(
+                            Context::Global,
+                            1,
+                            Rid::Clay,
+                            Rid::Wood,
+                            Rid::Stone,
+                        )),
+                        new Points(4),
+                    ],
                 ),
-                effects: [
-                    new Discounter(new Discount(
-                        Context::Global,
-                        1,
-                        Rid::Clay,
-                        Rid::Wood,
-                        Rid::Stone,
-                    )),
-                    new Points(4),
-                ],
-            ),
-            Id::TheHangingGardens->value => new Wonder(
-                id: Id::TheHangingGardens,
-                cost: new Cost(
-                    papyrus: 1,
-                    glass: 1,
-                    wood: 2,
+                Id::TheHangingGardens->value => new Wonder(
+                    id: Id::TheHangingGardens,
+                    cost: new Cost(
+                        papyrus: 1,
+                        glass: 1,
+                        wood: 2,
+                    ),
+                    effects: [
+                        new Coins(6),
+                        new PlayAgain(),
+                        new Points(3),
+                    ],
                 ),
-                effects: [
-                    new Coins(6),
-                    new PlayAgain(),
-                    new Points(3),
-                ],
-            ),
-            Id::TheMausoleum->value => new Wonder(
-                id: Id::TheMausoleum,
-                cost: new Cost(
-                    papyrus: 1,
-                    glass: 2,
-                    clay: 2,
+                Id::TheMausoleum->value => new Wonder(
+                    id: Id::TheMausoleum,
+                    cost: new Cost(
+                        papyrus: 1,
+                        glass: 2,
+                        clay: 2,
+                    ),
+                    effects: [
+                        new PickDiscardedCard(),
+                        new Points(2),
+                    ],
                 ),
-                effects: [
-                    new PickDiscardedCard(),
-                    new Points(2),
-                ],
-            ),
-            Id::Piraeus->value => new Wonder(
-                id: Id::Piraeus,
-                cost: new Cost(
-                    clay: 1,
-                    stone: 1,
-                    wood: 2,
+                Id::Piraeus->value => new Wonder(
+                    id: Id::Piraeus,
+                    cost: new Cost(
+                        clay: 1,
+                        stone: 1,
+                        wood: 2,
+                    ),
+                    effects: [
+                        new Discounter(new Discount(
+                            Context::Global,
+                            1,
+                            Rid::Glass,
+                            Rid::Papyrus,
+                        )),
+                        new PlayAgain(),
+                        new Points(2),
+                    ],
                 ),
-                effects: [
-                    new Discounter(new Discount(
-                        Context::Global,
-                        1,
-                        Rid::Glass,
-                        Rid::Papyrus,
-                    )),
-                    new PlayAgain(),
-                    new Points(2),
-                ],
-            ),
-            Id::ThePyramids->value => new Wonder(
-                id: Id::ThePyramids,
-                cost: new Cost(
-                    papyrus: 1,
-                    stone: 3,
+                Id::ThePyramids->value => new Wonder(
+                    id: Id::ThePyramids,
+                    cost: new Cost(
+                        papyrus: 1,
+                        stone: 3,
+                    ),
+                    effects: [
+                        new Points(9),
+                    ],
                 ),
-                effects: [
-                    new Points(9),
-                ],
-            ),
-            Id::TheSphinx->value => new Wonder(
-                id: Id::TheSphinx,
-                cost: new Cost(
-                    glass: 2,
-                    clay: 1,
-                    stone: 1,
+                Id::TheSphinx->value => new Wonder(
+                    id: Id::TheSphinx,
+                    cost: new Cost(
+                        glass: 2,
+                        clay: 1,
+                        stone: 1,
+                    ),
+                    effects: [
+                        new PlayAgain(),
+                        new Points(6),
+                    ],
                 ),
-                effects: [
-                    new PlayAgain(),
-                    new Points(6),
-                ],
-            ),
-            Id::TheStatueOfZeus->value => new Wonder(
-                id: Id::TheStatueOfZeus,
-                cost: new Cost(
-                    papyrus: 2,
-                    clay: 1,
-                    wood: 1,
-                    stone: 1,
+                Id::TheStatueOfZeus->value => new Wonder(
+                    id: Id::TheStatueOfZeus,
+                    cost: new Cost(
+                        papyrus: 2,
+                        clay: 1,
+                        wood: 1,
+                        stone: 1,
+                    ),
+                    effects: [
+                        new BurnCard(Type::RawMaterials),
+                        new Military(1, false),
+                        new Points(3),
+                    ],
                 ),
-                effects: [
-                    new BurnCard(Type::RawMaterials),
-                    new Military(1, false),
-                    new Points(3),
-                ],
-            ),
-            Id::TheTempleOfArtemis->value => new Wonder(
-                id: Id::TheTempleOfArtemis,
-                cost: new Cost(
-                    papyrus: 1,
-                    glass: 1,
-                    stone: 1,
-                    wood: 1,
+                Id::TheTempleOfArtemis->value => new Wonder(
+                    id: Id::TheTempleOfArtemis,
+                    cost: new Cost(
+                        papyrus: 1,
+                        glass: 1,
+                        stone: 1,
+                        wood: 1,
+                    ),
+                    effects: [
+                        new Coins(12),
+                        new PlayAgain(),
+                    ],
                 ),
-                effects: [
-                    new Coins(12),
-                    new PlayAgain(),
-                ],
-            ),
-            Id::Messe->value => new Wonder(
-                id: Id::Messe,
-                cost: new Cost(
-                    glass: 1,
-                    papyrus: 1,
-                    wood: 1,
-                    clay: 2,
+                Id::Messe->value => new Wonder(
+                    id: Id::Messe,
+                    cost: new Cost(
+                        glass: 1,
+                        papyrus: 1,
+                        wood: 1,
+                        clay: 2,
+                    ),
+                    effects: [
+                        new PickTopLineCard(),
+                        new Points(2),
+                    ],
                 ),
-                effects: [
-                    new PickTopLineCard(),
-                    new Points(2),
-                ],
-            ),
-            Id::StatueOfLiberty->value => new Wonder(
-                id: Id::StatueOfLiberty,
-                cost: new Cost(
-                    glass: 1,
-                    papyrus: 1,
-                    clay: 1,
-                    stone: 1,
-                    wood: 1,
+                Id::StatueOfLiberty->value => new Wonder(
+                    id: Id::StatueOfLiberty,
+                    cost: new Cost(
+                        glass: 1,
+                        papyrus: 1,
+                        clay: 1,
+                        stone: 1,
+                        wood: 1,
+                    ),
+                    effects: [
+                        new PickReturnedCards(),
+                        new Points(5),
+                    ],
                 ),
-                effects: [
-                    new PickReturnedCards(),
-                    new Points(5),
-                ],
-            ),
-        ];
+            ];
+        }
+
+        return self::$data;
     }
 }
