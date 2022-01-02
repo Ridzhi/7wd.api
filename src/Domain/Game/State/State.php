@@ -41,4 +41,33 @@ class State
 
     #[Ignore]
     public ?Deck $deck = null;
+
+    public function setTurn(string $name): void
+    {
+        if ($this->enemy->name === $name) {
+            $this->nextTurn();
+        }
+    }
+
+    public function nextTurn(): void
+    {
+        list($this->me, $this->enemy) = [$this->enemy, $this->me];
+    }
+
+    public function refreshCardItems(): void
+    {
+        $this->cardItems->layout = $this->deck->getLayout();
+        $this->cardItems->playable = $this->deck->getPlayableCards();
+    }
+
+    public function refreshCities(): void
+    {
+        $origTurn = $this->me->name;
+
+        foreach ([$this->me->name, $this->enemy->name] as $name) {
+            // change city context for correct calculations uses me, enemy aliases
+            $this->setTurn($name);
+            $this->me->refreshCardsPrice($this->cardItems->playable);
+        }
+    }
 }

@@ -11,25 +11,25 @@ class Wonders
 
     public array $constructed = [];
 
-    public function add(Wid $wid): void
+    public function add(Wid $wonder): void
     {
-        $this->list[] = $wid->value;
-        $this->constructed[$wid->value] = Cid::Null->value;
+        $this->list[] = $wonder->value;
+        $this->constructed[$wonder->value] = Cid::Null->value;
     }
 
-    public function has(Wid $wid): bool
+    public function has(Wid $wonder): bool
     {
-        return isset($this->constructed[$wid->value]);
+        return isset($this->constructed[$wonder->value]);
     }
 
-    public function isConstructed(Wid $wid): bool
+    public function isConstructed(Wid $wonder): bool
     {
-        return $this->has($wid) && ($this->constructed[$wid->value] != Cid::Null->value);
+        return $this->has($wonder) && ($this->constructed[$wonder->value] != Cid::Null->value);
     }
 
-    public function construct(Wid $wid, Cid $cid): void
+    public function construct(Wid $wonder, Cid $card): void
     {
-        $this->constructed[$wid->value] = $cid->value;
+        $this->constructed[$wonder->value] = $card->value;
     }
 
     public function countTotal(): int

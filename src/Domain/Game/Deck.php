@@ -24,16 +24,12 @@ class Deck
 
     private array $faceDown = [];
 
-    private Repository $repository;
-
     /**
      * @param array<Cid> $cards
-     * @param Repository $repository
      */
-    public function __construct(array $cards, Repository $repository)
+    public function __construct(array $cards)
     {
         $this->cards = $cards;
-        $this->repository = $repository;
         $this->scheme = $this->getScheme();
 
         $prev = [];
@@ -94,7 +90,7 @@ class Deck
             }
 
             if (isset($this->faceDown[$cid->value])) {
-                $layout[$pos] = $this->repository->get($cid)->type === Type::Guild
+                $layout[$pos] = Repository::get($cid)->type === Type::Guild
                     ? self::LAYOUT_SLOT_GUILD
                     : self::LAYOUT_SLOT_FACE_DOWN;
             }
@@ -129,7 +125,7 @@ class Deck
     public function getReturnedCards(): array
     {
         return array_diff(
-            $this->repository->getByAge($this->getAge()),
+            Repository::getByAge($this->getAge()),
             $this->cards,
         );
     }
@@ -194,6 +190,6 @@ TPL,
 
     private function getAge(): Age
     {
-        return $this->repository->get($this->cards[0])->age;
+        return Repository::get($this->cards[0])->age;
     }
 }

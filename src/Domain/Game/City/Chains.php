@@ -2,19 +2,19 @@
 
 namespace App\Domain\Game\City;
 
-use App\Domain\Game\Card\Card;
+use App\Domain\Game\Card\Id;
 
 class Chains
 {
     public array $list = [];
 
-    public function add(Card $card): void
+    public function add(Id $card): void
     {
-        $this->list[] = $card->id;
+        $this->list[] = $card;
     }
 
-    public function has(Card $card): bool
+    public function has(Id $card): bool
     {
-        return in_array($card->id, $this->list);
+        return in_array($card, $this->list);
     }
 }

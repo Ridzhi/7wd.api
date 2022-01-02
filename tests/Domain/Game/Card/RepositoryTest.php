@@ -11,14 +11,6 @@ use PHPUnit\Framework\TestCase;
  */
 class RepositoryTest extends TestCase
 {
-    private Repository $repository;
-
-    protected function setUp(): void
-    {
-        $this->repository = new Repository();
-        parent::setUp();
-    }
-
     /**
      * @covers ::getByAge
      * @dataProvider ageCardsCounterProvider
@@ -27,7 +19,7 @@ class RepositoryTest extends TestCase
     {
         $this->assertCount(
             $count,
-            $this->repository->getByAge($age),
+            Repository::getByAge($age),
         );
     }
 
@@ -38,7 +30,7 @@ class RepositoryTest extends TestCase
     {
         $this->assertCount(
             7,
-            $this->repository->getGuilds(),
+            Repository::getGuilds(),
         );
     }
 

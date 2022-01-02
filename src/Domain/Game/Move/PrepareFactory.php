@@ -16,7 +16,6 @@ class PrepareFactory
     public function __construct(
         private WonderRepository $wonderRepository,
         private TokenRepository  $tokenRepository,
-        private CardRepository   $cardRepository,
     )
     {
     }
@@ -78,13 +77,13 @@ class PrepareFactory
      */
     private function getCards(Age $age): array
     {
-        $cards = $this->cardRepository->getByAge($age);
+        $cards = CardRepository::getByAge($age);
         shuffle($cards);
 
         switch ($age) {
             case Age::III:
                 $cards = array_slice($cards, 0, Rule::DECK_LIMIT - Rule::GUILDS_LIMIT);
-                $guilds = $this->cardRepository->getGuilds();
+                $guilds = CardRepository::getGuilds();
                 shuffle($guilds);
                 array_push($cards, ...array_slice($guilds, 0, Rule::DECK_LIMIT));
                 shuffle($cards);

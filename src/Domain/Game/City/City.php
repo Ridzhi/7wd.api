@@ -3,8 +3,13 @@
 namespace App\Domain\Game\City;
 
 use App\Domain\Game\Bonus;
+use App\Domain\Game\Card\Id as Cid;
+use App\Domain\Game\Card\Repository as CardRepo;
 use App\Domain\Game\Card\Type;
+use App\Domain\Game\Cost;
+use App\Domain\Game\Discount\Context;
 use App\Domain\Game\Resource\Storage;
+use SplObjectStorage;
 
 class City
 {
@@ -23,6 +28,49 @@ class City
         public ?Score     $score = null,
     )
     {
+    }
+
+    /**
+     * @param array<Cid> $cards
+     */
+    public function refreshCardsPrice(array $cards): void
+    {
+        $prices = new SplObjectStorage();
+
+        foreach ($cards as $card) {
+            if ($this->chains->has($card)) {
+                $prices[$card] = 0;
+                continue;
+            }
+
+            $prices[$card] = $this->getFinalPrice(
+                Context::byCard($card),
+                CardRepo::get($card)->cost,
+            );
+        }
+
+        $this->bank->cardPrice = $prices;
+    }
+
+    public function getFinalPrice(Context $context, Cost $cost): int
+    {
+        $cost = clone $cost;
+
+        array_walk($cost->resources, function (&$count, $rid) {
+            if (isset($this->resources[$rid])) {
+                $count = max($count - $this->resources[$rid], 0);
+            }
+        });
+
+        $price = $cost->coins;
+
+        $this->discounter->discount($context, $cost->resources, $this->bank->resourcePrice);
+
+        foreach ($cost->resources as $rid => $count) {
+            $price += ($count * $this->bank->resourcePrice[$rid]);
+        }
+
+        return $price;
     }
 
     public function getBonusRate(Bonus $bonus): int

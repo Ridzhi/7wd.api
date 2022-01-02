@@ -2,12 +2,18 @@
 
 namespace App\Domain\Game;
 
+use App\Domain\Game\Resource\Id as Rid;
 use App\Domain\Game\Resource\Storage;
 
 class Cost
 {
-    public readonly int $coins;
-    public readonly Storage $resources;
+    public int $coins;
+
+    /**
+     * @var Storage | array<Rid,int>
+     * @noinspection PhpDocFieldTypeMismatchInspection
+     */
+    public Storage $resources;
 
     public function __construct(
         int $coins = 0,
