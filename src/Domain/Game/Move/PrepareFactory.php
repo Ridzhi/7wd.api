@@ -15,7 +15,6 @@ class PrepareFactory
 {
     public function __construct(
         private WonderRepository $wonderRepository,
-        private TokenRepository  $tokenRepository,
     )
     {
     }
@@ -54,7 +53,7 @@ class PrepareFactory
     private function getTokens(): array
     {
         /** @uses \App\Domain\Game\Token\Token::$id */
-        $tokens = array_column($this->tokenRepository->data, 'id');
+        $tokens = array_column(TokenRepository::getAll(), 'id');
         shuffle($tokens);
 
         return $tokens;
