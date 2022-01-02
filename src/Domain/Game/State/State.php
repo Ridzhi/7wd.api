@@ -68,6 +68,10 @@ class State
             // change city context for correct calculations uses me, enemy aliases
             $this->setTurn($name);
             $this->me->refreshCardsPrice($this->cardItems->playable);
+            $this->me->refreshWondersPrice();
+            $this->me->refreshScore($this);
         }
+
+        $this->setTurn($origTurn);
     }
 }

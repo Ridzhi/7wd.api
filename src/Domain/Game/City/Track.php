@@ -79,4 +79,9 @@ class Track
 
         return 0;
     }
+
+    public function getPoints(): int
+    {
+        return $this->zones[$this->getZoneIndex($this->pos)]['points'];
+    }
 }

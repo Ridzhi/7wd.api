@@ -4,32 +4,36 @@ namespace App\Domain\Game\City;
 
 use App\Domain\Game\Card\Id as Cid;
 use App\Domain\Game\Wonder\Id as Wid;
+use SplObjectStorage;
 
 class Wonders
 {
+    /**
+     * @var array<Wid>
+     */
     public array $list = [];
 
-    public array $constructed = [];
+    public SplObjectStorage $constructed;
+
+    public function __construct()
+    {
+        $this->constructed = new SplObjectStorage();
+    }
 
     public function add(Wid $wonder): void
     {
-        $this->list[] = $wonder->value;
-        $this->constructed[$wonder->value] = Cid::Null->value;
+        $this->list[] = $wonder;
+        $this->constructed[$wonder] = Cid::Null;
     }
 
     public function has(Wid $wonder): bool
     {
-        return isset($this->constructed[$wonder->value]);
-    }
-
-    public function isConstructed(Wid $wonder): bool
-    {
-        return $this->has($wonder) && ($this->constructed[$wonder->value] != Cid::Null->value);
+        return isset($this->constructed[$wonder]);
     }
 
     public function construct(Wid $wonder, Cid $card): void
     {
-        $this->constructed[$wonder->value] = $card->value;
+        $this->constructed[$wonder] = $card;
     }
 
     public function countTotal(): int
@@ -39,10 +43,39 @@ class Wonders
 
     public function countConstructed(): int
     {
-        return count(array_filter(
-            $this->constructed,
-            fn($value) => $value !== Cid::Null->value),
-        );
+        return count($this->getConstructed());
+    }
+
+    /**
+     * @return array<Wid>
+     */
+    public function getConstructed(): array
+    {
+        $result = [];
+
+        foreach ($this->constructed as $wid => $cid) {
+            if ($cid !== Cid::Null) {
+                $result[] = $wid;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array<Wid>
+     */
+    public function getNotConstructed(): array
+    {
+        $result = [];
+
+        foreach ($this->constructed as $wid => $cid) {
+            if ($cid === Cid::Null) {
+                $result[] = $wid;
+            }
+        }
+
+        return $result;
     }
 
     public function removeNotConstructed(): void

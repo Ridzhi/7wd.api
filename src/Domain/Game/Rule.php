@@ -9,4 +9,5 @@ interface Rule
     public const RANDOM_TOKENS_COUNT = 3;
     public const DECK_LIMIT = 20;
     public const GUILDS_LIMIT = 3;
+    public const COINS_PER_POINT = 3;
 }

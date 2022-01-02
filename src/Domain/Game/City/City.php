@@ -4,11 +4,15 @@ namespace App\Domain\Game\City;
 
 use App\Domain\Game\Bonus;
 use App\Domain\Game\Card\Id as Cid;
-use App\Domain\Game\Card\Repository as CardRepo;
+use App\Domain\Game\Card\Repository as CardRepository;
 use App\Domain\Game\Card\Type;
 use App\Domain\Game\Cost;
 use App\Domain\Game\Discount\Context;
 use App\Domain\Game\Resource\Storage;
+use App\Domain\Game\Rule;
+use App\Domain\Game\State\State;
+use App\Domain\Game\Token\Repository as TokenRepository;
+use App\Domain\Game\Wonder\Repository as WonderRepository;
 use SplObjectStorage;
 
 class City
@@ -45,11 +49,74 @@ class City
 
             $prices[$card] = $this->getFinalPrice(
                 Context::byCard($card),
-                CardRepo::get($card)->cost,
+                CardRepository::get($card)->cost,
             );
         }
 
         $this->bank->cardPrice = $prices;
+    }
+
+    public function refreshWondersPrice(): void
+    {
+        $prices = new SplObjectStorage();
+
+        foreach ($this->wonders->getNotConstructed() as $wid) {
+            $prices[$wid] = $this->getFinalPrice(
+                Context::Wonder,
+                WonderRepository::get($wid)->cost,
+            );
+        }
+
+        $this->bank->wonderPrice = $prices;
+    }
+
+    public function refreshScore(State $state): void
+    {
+        $score = new Score();
+
+        foreach ($this->cards->data as $type => $cards) {
+            foreach ($cards as $cid) {
+                $card = CardRepository::get($cid);
+                $points = $card->getPoints($state);
+
+                switch ($type) {
+                    case Type::Civilian:
+                        $score->civilian += $points;
+                        break;
+                    case Type::Science:
+                        $score->science += $points;
+                        break;
+                    case Type::Commercial:
+                        $score->commercial += $points;
+                        break;
+                    case Type::Guild:
+                        $score->guilds += $points;
+                        break;
+                }
+            }
+        }
+
+        foreach ($this->wonders->getConstructed() as $wid) {
+            $score->wonders += WonderRepository::get($wid)->getPoints($state);
+        }
+
+        foreach ($this->tokens->list as $tid) {
+            $score->tokens += TokenRepository::get($tid)->getPoints($state);
+        }
+
+        $score->coins = intdiv($this->treasure->coins, Rule::COINS_PER_POINT);
+        $score->military = $this->track->getPoints();
+
+        $score->total = $score->civilian
+            + $score->science
+            + $score->commercial
+            + $score->guilds
+            + $score->wonders
+            + $score->tokens
+            + $score->coins
+            + $score->military;
+
+        $this->score = $score;
     }
 
     public function getFinalPrice(Context $context, Cost $cost): int
@@ -84,7 +151,7 @@ class City
             Bonus::Civilian => $this->cards->count(Type::Civilian),
             Bonus::Science => $this->cards->count(Type::Science),
             Bonus::Wonder => $this->wonders->countConstructed(),
-            Bonus::Coin => intdiv($this->treasure->coins, Score::COINS_PER_POINT),
+            Bonus::Coin => intdiv($this->treasure->coins, Rule::COINS_PER_POINT),
         };
     }
 }

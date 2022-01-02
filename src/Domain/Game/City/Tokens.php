@@ -10,11 +10,11 @@ class Tokens
 
     public function add(Tid $token): void
     {
-        $this->list[] = $token->value;
+        $this->list[] = $token;
     }
 
     public function has(Tid $token): bool
     {
-        return in_array($token->value, $this->list);
+        return in_array($token, $this->list);
     }
 }

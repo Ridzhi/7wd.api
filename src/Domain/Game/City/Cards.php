@@ -2,30 +2,41 @@
 
 namespace App\Domain\Game\City;
 
-use App\Domain\Game\Card\Card;
+use App\Domain\Game\Card\Id;
+use App\Domain\Game\Card\Repository;
 use App\Domain\Game\Card\Type;
+use SplObjectStorage;
 
 class Cards
 {
-    public array $data = [];
+    public SplObjectStorage $data;
 
-    public function add(Card $card): void
+    public function __construct()
     {
-        if (!isset($this->data[$card->type->value])) {
-            $this->data[$card->type->value] = [];
-        }
-
-        $this->data[$card->type->value][] = $card->id;
+        $this->data = new SplObjectStorage();
     }
 
-    public function remove(Card $card): void
+    public function add(Id $card): void
     {
-        $pos = array_search($card->id, $this->data[$card->type->value], true);
-        unset($this->data[$card->type->value][$pos]);
+        $card = Repository::get($card);
+
+        if (!isset($this->data[$card->type])) {
+            $this->data[$card->type] = [];
+        }
+
+        $this->data[$card->type][] = $card->id;
+    }
+
+    public function remove(Id $card): void
+    {
+        $card = Repository::get($card);
+
+        $pos = array_search($card->id, $this->data[$card->type], true);
+        unset($this->data[$card->type][$pos]);
     }
 
     public function count(Type $type): int
     {
-        return count($this->data[$type->value]);
+        return count($this->data[$type]);
     }
 }

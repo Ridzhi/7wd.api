@@ -22,13 +22,16 @@ class PickWonder implements MutatorInterface
         $this->id = Id::PickWonder;
     }
 
+    /**
+     * @throws InvalidError
+     */
     public function mutate(State $state): void
     {
         if ($state->phase !== Phase::Prepare) {
             throw new InvalidError();
         }
 
-        if (array_search($this->wonder, $state->dialogItems->wonders) === false) {
+        if (!in_array($this->wonder, $state->dialogItems->wonders)) {
             throw new InvalidError();
         }
 
@@ -66,6 +69,7 @@ class PickWonder implements MutatorInterface
                     cards: $state->randomItems->cards[Age::I->value],
                 );
                 $state->refreshCardItems();
+                $state->refreshCities();
 
                 break;
             default:
