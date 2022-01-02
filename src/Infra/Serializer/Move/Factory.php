@@ -13,6 +13,7 @@ class Factory
         return new Serializer([
             new Normalizer\Prepare(),
             new Normalizer\PickWonder(),
+            new Normalizer\SelectWhoStartsTheNextAge(),
         ]);
     }
 }

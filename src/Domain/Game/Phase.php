@@ -8,7 +8,7 @@ enum Phase: int
     case Turn = 1;
     case Prepare = 2;
     case BurnCard = 3;
-    case ChoosingWhoStartsTheNextAge = 4;
+    case SelectWhoStartsTheNextAge = 4;
     case PickBoardToken = 5;
     case PickDiscardedCard = 6;
     case PickRandomToken = 7;
