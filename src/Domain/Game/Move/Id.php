@@ -16,6 +16,7 @@ enum Id: int
     case PickTopLineCard = 10;
     case PickDiscardedCard = 11;
     case PickReturnedCards = 12;
+    case Over = 13;
 
     /**
      * @return class-string
@@ -35,6 +36,7 @@ enum Id: int
             self::PickTopLineCard => PickTopLineCard::class,
             self::PickDiscardedCard => PickDiscardedCard::class,
             self::PickReturnedCards => PickReturnedCards::class,
+            self::Over => Over::class,
         };
     }
 }

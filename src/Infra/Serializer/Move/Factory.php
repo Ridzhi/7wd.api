@@ -15,6 +15,7 @@ class Factory
             new Normalizer\ConstructCard(),
             new Normalizer\ConstructWonder(),
             new Normalizer\DiscardCard(),
+            new Normalizer\Over(),
             new Normalizer\PickBoardToken(),
             new Normalizer\PickDiscardedCard(),
             new Normalizer\PickRandomToken(),
