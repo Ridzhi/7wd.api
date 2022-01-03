@@ -29,4 +29,13 @@ trait EffectsSupport
 
         return $points;
     }
+
+    public function burn(State $state): void
+    {
+        foreach ($this->effects as $effect) {
+            if ($effect instanceof BurnInterface) {
+                $effect->burn($state);
+            }
+        }
+    }
 }

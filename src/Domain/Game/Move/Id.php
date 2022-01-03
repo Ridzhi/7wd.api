@@ -31,6 +31,7 @@ enum Id: int
             self::ConstructCard => ConstructCard::class,
             self::ConstructWonder => ConstructWonder::class,
             self::DiscardCard => DiscardCard::class,
+            self::BurnCard => BurnCard::class,
         };
     }
 }
