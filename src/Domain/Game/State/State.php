@@ -79,6 +79,11 @@ class State
         $this->setTurn($origTurn);
     }
 
+    public function pay()
+    {
+
+    }
+
     public function over(Victory $victory, ?string $winner = null): void
     {
         $this->phase = Phase::Over;

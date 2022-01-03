@@ -28,6 +28,7 @@ enum Id: int
             self::SelectWhoStartsTheNextAge => SelectWhoStartsTheNextAge::class,
             self::PickBoardToken => PickBoardToken::class,
             self::PickRandomToken => PickRandomToken::class,
+            self::ConstructCard => ConstructCard::class,
         };
     }
 }

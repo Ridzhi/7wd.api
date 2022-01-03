@@ -131,20 +131,20 @@ class Deck
         );
     }
 
-    public function remove(Card $card): void
+    public function remove(Cid $card): void
     {
-        unset($this->graph[$card->id->value]);
+        unset($this->graph[$card->value]);
 
         array_walk($this->graph, function ($children, $parent) use ($card) {
             $del1 = false;
             $del2 = false;
 
-            if ($children[0] === $card->id) {
+            if ($children[0] === $card) {
                 $children[0] = Cid::Null;
                 $del1 = true;
             }
 
-            if ($children[1] === $card->id) {
+            if ($children[1] === $card) {
                 $children[1] = Cid::Null;
                 $del2 = true;
             }

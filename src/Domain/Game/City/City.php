@@ -8,9 +8,11 @@ use App\Domain\Game\Card\Repository as CardRepository;
 use App\Domain\Game\Card\Type;
 use App\Domain\Game\Cost;
 use App\Domain\Game\Discount\Context;
+use App\Domain\Game\Move\InvalidError;
 use App\Domain\Game\Resource\Storage;
 use App\Domain\Game\Rule;
 use App\Domain\Game\State\State;
+use App\Domain\Game\Token\Id as Tid;
 use App\Domain\Game\Token\Repository as TokenRepository;
 use App\Domain\Game\Wonder\Repository as WonderRepository;
 use SplObjectStorage;
@@ -119,7 +121,37 @@ class City
         $this->score = $score;
     }
 
-    public function getFinalPrice(Context $context, Cost $cost): int
+    public function pay(Context $context, Cost $cost, City $enemy): void
+    {
+        $price = $this->getFinalPrice($context, $cost);
+
+        if ($price > $this->treasure->coins) {
+            throw new InvalidError();
+        }
+
+        $this->treasure->change(-$price);
+
+        if ($enemy->tokens->has(Tid::Economy)) {
+            $enemy->treasure->change($price - $cost->coins);
+        }
+    }
+
+    public function getBonusRate(Bonus $bonus): int
+    {
+        return match ($bonus) {
+            Bonus::Resources => $this->cards->count(Type::RawMaterials) + $this->cards->count(Type::ManufacturedGoods),
+            Bonus::RawMaterials => $this->cards->count(Type::RawMaterials),
+            Bonus::ManufacturedGoods => $this->cards->count(Type::ManufacturedGoods),
+            Bonus::Military => $this->cards->count(Type::Military),
+            Bonus::Commercial => $this->cards->count(Type::Commercial),
+            Bonus::Civilian => $this->cards->count(Type::Civilian),
+            Bonus::Science => $this->cards->count(Type::Science),
+            Bonus::Wonder => $this->wonders->countConstructed(),
+            Bonus::Coin => intdiv($this->treasure->coins, Rule::COINS_PER_POINT),
+        };
+    }
+
+    protected function getFinalPrice(Context $context, Cost $cost): int
     {
         $cost = clone $cost;
 
@@ -138,20 +170,5 @@ class City
         }
 
         return $price;
-    }
-
-    public function getBonusRate(Bonus $bonus): int
-    {
-        return match ($bonus) {
-            Bonus::Resources => $this->cards->count(Type::RawMaterials) + $this->cards->count(Type::ManufacturedGoods),
-            Bonus::RawMaterials => $this->cards->count(Type::RawMaterials),
-            Bonus::ManufacturedGoods => $this->cards->count(Type::ManufacturedGoods),
-            Bonus::Military => $this->cards->count(Type::Military),
-            Bonus::Commercial => $this->cards->count(Type::Commercial),
-            Bonus::Civilian => $this->cards->count(Type::Civilian),
-            Bonus::Science => $this->cards->count(Type::Science),
-            Bonus::Wonder => $this->wonders->countConstructed(),
-            Bonus::Coin => intdiv($this->treasure->coins, Rule::COINS_PER_POINT),
-        };
     }
 }

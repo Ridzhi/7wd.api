@@ -19,9 +19,9 @@ class CardItems
      */
     public array $discarded = [];
 
-    public function isPlayable(Card $card): bool
+    public function isPlayable(Id $card): bool
     {
-        return in_array($card->id, $this->playable);
+        return in_array($card, $this->playable);
     }
 
     public function addToDiscard(Card $card): void

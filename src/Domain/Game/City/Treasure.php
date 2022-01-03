@@ -8,9 +8,9 @@ class Treasure
 
     public int $coins = self::DEFAULT_COINS;
 
-    public function add(int $coins): void
+    public function change(int $diff): void
     {
-        $this->coins += $coins;
+        $this->coins += $diff;
 
         if ($this->coins < 0) {
             $this->coins = 0;
