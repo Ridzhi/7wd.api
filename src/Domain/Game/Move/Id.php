@@ -4,19 +4,19 @@ namespace App\Domain\Game\Move;
 
 enum Id: int
 {
-    case Prepare = 1;
-    case PickWonder = 2;
-    case PickBoardToken = 3;
-    case ConstructCard = 4;
-    case ConstructWonder = 5;
-    case DiscardCard = 6;
-    case SelectWhoStartsTheNextAge = 7;
-    case BurnCard = 8;
-    case PickRandomToken = 9;
+    case BurnCard = 1;
+    case ConstructCard = 2;
+    case ConstructWonder = 3;
+    case DiscardCard = 4;
+    case Over = 5;
+    case PickBoardToken = 6;
+    case PickDiscardedCard = 7;
+    case PickRandomToken = 8;
+    case PickReturnedCards = 9;
     case PickTopLineCard = 10;
-    case PickDiscardedCard = 11;
-    case PickReturnedCards = 12;
-    case Over = 13;
+    case PickWonder = 11;
+    case Prepare = 12;
+    case SelectWhoStartsTheNextAge = 13;
 
     /**
      * @return class-string
@@ -24,19 +24,19 @@ enum Id: int
     public function classname(): string
     {
         return match ($this) {
-            self::Prepare => Prepare::class,
-            self::PickWonder => PickWonder::class,
-            self::SelectWhoStartsTheNextAge => SelectWhoStartsTheNextAge::class,
-            self::PickBoardToken => PickBoardToken::class,
-            self::PickRandomToken => PickRandomToken::class,
+            self::BurnCard => BurnCard::class,
             self::ConstructCard => ConstructCard::class,
             self::ConstructWonder => ConstructWonder::class,
             self::DiscardCard => DiscardCard::class,
-            self::BurnCard => BurnCard::class,
-            self::PickTopLineCard => PickTopLineCard::class,
-            self::PickDiscardedCard => PickDiscardedCard::class,
-            self::PickReturnedCards => PickReturnedCards::class,
             self::Over => Over::class,
+            self::PickBoardToken => PickBoardToken::class,
+            self::PickDiscardedCard => PickDiscardedCard::class,
+            self::PickRandomToken => PickRandomToken::class,
+            self::PickReturnedCards => PickReturnedCards::class,
+            self::PickTopLineCard => PickTopLineCard::class,
+            self::PickWonder => PickWonder::class,
+            self::Prepare => Prepare::class,
+            self::SelectWhoStartsTheNextAge => SelectWhoStartsTheNextAge::class,
         };
     }
 }

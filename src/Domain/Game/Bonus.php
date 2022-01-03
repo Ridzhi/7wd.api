@@ -4,13 +4,13 @@ namespace App\Domain\Game;
 
 enum Bonus: int
 {
-    case Resources = 1;
-    case RawMaterials = 2;
-    case ManufacturedGoods = 3;
-    case Military = 4;
-    case Commercial = 5;
-    case Civilian = 6;
-    case Science = 7;
-    case Wonder = 8;
-    case Coin = 9;
+    case Civilian = 1;
+    case Coin = 2;
+    case Commercial = 3;
+    case ManufacturedGoods = 4;
+    case Military = 5;
+    case RawMaterials = 6;
+    case Resources = 7;
+    case Science = 8;
+    case Wonder = 9;
 }

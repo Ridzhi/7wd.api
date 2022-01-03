@@ -6,11 +6,11 @@ use JsonSerializable;
 
 enum Type: int
 {
-    case RawMaterials = 1;
-    case ManufacturedGoods = 2;
-    case Military = 3;
-    case Science = 4;
-    case Civilian = 5;
-    case Commercial = 6;
-    case Guild = 7;
+    case Civilian = 1;
+    case Commercial = 2;
+    case Guild = 3;
+    case ManufacturedGoods = 4;
+    case Military = 5;
+    case RawMaterials = 6;
+    case Science = 7;
 }
