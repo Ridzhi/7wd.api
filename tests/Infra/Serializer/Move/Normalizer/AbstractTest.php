@@ -9,17 +9,17 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 abstract class AbstractTest extends KernelTestCase
 {
-    abstract function factoryMove(): object;
+    abstract public function factoryMove(): object;
 
     /**
      * @return class-string
      */
-    abstract function getMoveClassname(): string;
+    abstract public function getMoveClassname(): string;
 
     /**
      * @return class-string
      */
-    abstract function getNormalizerClassname(): string;
+    abstract public function getNormalizerClassname(): string;
 
     /**
      * @covers ::denormalize

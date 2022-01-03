@@ -2,36 +2,35 @@
 
 namespace App\Domain\Game\State;
 
-use App\Domain\Game\Card\Card;
-use App\Domain\Game\Card\Id;
+use App\Domain\Game\Card\Id as Cid;
 
 class CardItems
 {
     public array $layout = [];
 
     /**
-     * @var array<Id>
+     * @var array<Cid>
      */
     public array $playable = [];
 
     /**
-     * @var array<Id>
+     * @var array<Cid>
      */
     public array $discarded = [];
 
-    public function isPlayable(Id $card): bool
+    public function isPlayable(Cid $card): bool
     {
         return in_array($card, $this->playable);
     }
 
-    public function addToDiscard(Card $card): void
+    public function addToDiscard(Cid $card): void
     {
-        $this->discarded[] = $card->id;
+        $this->discarded[] = $card;
     }
 
-    public function removeFromDiscard(Card $card)
+    public function removeFromDiscard(Cid $card)
     {
-        $pos = array_search($card->id, $this->discarded, true);
+        $pos = array_search($card, $this->discarded, true);
 
         if ($pos !== false) {
             unset($this->discarded[$pos]);
