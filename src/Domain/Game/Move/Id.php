@@ -34,6 +34,7 @@ enum Id: int
             self::BurnCard => BurnCard::class,
             self::PickTopLineCard => PickTopLineCard::class,
             self::PickDiscardedCard => PickDiscardedCard::class,
+            self::PickReturnedCards => PickReturnedCards::class,
         };
     }
 }
