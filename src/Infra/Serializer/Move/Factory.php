@@ -11,12 +11,17 @@ class Factory
     public function factory(): DenormalizerInterface
     {
         return new Serializer([
-            new Normalizer\Prepare(),
-            new Normalizer\PickWonder(),
-            new Normalizer\SelectWhoStartsTheNextAge(),
-            new Normalizer\PickBoardToken(),
-            new Normalizer\PickRandomToken(),
+            new Normalizer\BurnCard(),
+            new Normalizer\ConstructCard(),
             new Normalizer\ConstructWonder(),
+            new Normalizer\DiscardCard(),
+            new Normalizer\PickBoardToken(),
+            new Normalizer\PickDiscardedCard(),
+            new Normalizer\PickRandomToken(),
+            new Normalizer\PickTopLineCard(),
+            new Normalizer\PickWonder(),
+            new Normalizer\Prepare(),
+            new Normalizer\SelectWhoStartsTheNextAge(),
         ]);
     }
 }

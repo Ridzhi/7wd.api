@@ -33,6 +33,7 @@ enum Id: int
             self::DiscardCard => DiscardCard::class,
             self::BurnCard => BurnCard::class,
             self::PickTopLineCard => PickTopLineCard::class,
+            self::PickDiscardedCard => PickDiscardedCard::class,
         };
     }
 }
