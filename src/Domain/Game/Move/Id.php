@@ -29,6 +29,7 @@ enum Id: int
             self::PickBoardToken => PickBoardToken::class,
             self::PickRandomToken => PickRandomToken::class,
             self::ConstructCard => ConstructCard::class,
+            self::ConstructWonder => ConstructWonder::class,
         };
     }
 }

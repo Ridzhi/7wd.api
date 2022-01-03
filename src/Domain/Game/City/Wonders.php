@@ -46,6 +46,11 @@ class Wonders
         return count($this->getConstructed());
     }
 
+    public function isConstructed(Wid $wonder): bool
+    {
+        return $this->constructed[$wonder] !== Cid::Null;
+    }
+
     /**
      * @return array<Wid>
      */
