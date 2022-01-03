@@ -26,6 +26,8 @@ enum Id: int
             self::Prepare => Prepare::class,
             self::PickWonder => PickWonder::class,
             self::SelectWhoStartsTheNextAge => SelectWhoStartsTheNextAge::class,
+            self::PickBoardToken => PickBoardToken::class,
+            self::PickRandomToken => PickRandomToken::class,
         };
     }
 }

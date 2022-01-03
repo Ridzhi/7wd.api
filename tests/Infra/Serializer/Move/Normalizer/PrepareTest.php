@@ -14,7 +14,7 @@ use App\Infra\Serializer\Move\Normalizer;
  */
 class PrepareTest extends AbstractTest
 {
-    function factoryMove(): object
+    public function factoryMove(): object
     {
         return new Move\Prepare(
             p1: 'Player1',
@@ -48,12 +48,12 @@ class PrepareTest extends AbstractTest
         );
     }
 
-    function getMoveClassname(): string
+    public function getMoveClassname(): string
     {
         return Move\Prepare::class;
     }
 
-    function getNormalizerClassname(): string
+    public function getNormalizerClassname(): string
     {
         return Normalizer\Prepare::class;
     }

@@ -7,17 +7,17 @@ use App\Infra\Serializer\Move\Normalizer;
 
 class SelectWhoStartsTheNextAgeTest extends AbstractTest
 {
-    function factoryMove(): object
+    public function factoryMove(): object
     {
         return new Move\SelectWhoStartsTheNextAge(player: 'Player1');
     }
 
-    function getMoveClassname(): string
+    public function getMoveClassname(): string
     {
         return Move\SelectWhoStartsTheNextAge::class;
     }
 
-    function getNormalizerClassname(): string
+    public function getNormalizerClassname(): string
     {
         return Normalizer\SelectWhoStartsTheNextAge::class;
     }

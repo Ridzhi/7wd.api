@@ -14,6 +14,8 @@ class Factory
             new Normalizer\Prepare(),
             new Normalizer\PickWonder(),
             new Normalizer\SelectWhoStartsTheNextAge(),
+            new Normalizer\PickBoardToken(),
+            new Normalizer\PickRandomToken(),
         ]);
     }
 }
