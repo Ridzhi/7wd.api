@@ -18,6 +18,7 @@ class Factory
             new Normalizer\PickBoardToken(),
             new Normalizer\PickDiscardedCard(),
             new Normalizer\PickRandomToken(),
+            new Normalizer\PickReturnedCards(),
             new Normalizer\PickTopLineCard(),
             new Normalizer\PickWonder(),
             new Normalizer\Prepare(),
