@@ -19,7 +19,7 @@ use App\Domain\Game\Wonder\Id as Wid;
  */
 class Prepare implements MutatorInterface
 {
-    public readonly Id $id;
+    public Id $id = Id::Prepare;
 
     /**
      * @param string $p1
@@ -38,7 +38,6 @@ class Prepare implements MutatorInterface
         public readonly array $cards,
     )
     {
-        $this->id = Id::Prepare;
     }
 
     public function mutate(State $state): void

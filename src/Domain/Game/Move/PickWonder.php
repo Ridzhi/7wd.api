@@ -13,13 +13,12 @@ use LogicException;
 
 class PickWonder implements MutatorInterface
 {
-    public readonly Id $id;
+    public Id $id = Id::PickWonder;
 
     public function __construct(
         public readonly Wid $wonder,
     )
     {
-        $this->id = Id::PickWonder;
     }
 
     /**

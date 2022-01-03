@@ -8,13 +8,12 @@ use App\Domain\Game\State\State;
 
 class SelectWhoStartsTheNextAge implements MutatorInterface
 {
-    public readonly Id $id;
+    public Id $id = Id::SelectWhoStartsTheNextAge;
 
     public function __construct(
         public readonly string $player,
     )
     {
-        $this->id = Id::SelectWhoStartsTheNextAge;
     }
 
     public function mutate(State $state): void

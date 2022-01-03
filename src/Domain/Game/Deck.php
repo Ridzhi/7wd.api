@@ -26,6 +26,7 @@ class Deck
 
     /**
      * @param array<Cid> $cards
+     * @TODO replace to resolve method
      */
     public function __construct(array $cards)
     {
