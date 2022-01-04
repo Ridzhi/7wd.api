@@ -5,13 +5,14 @@ namespace App\Domain\Game\Effect;
 use App\Domain\Game\ScorableInterface;
 use App\Domain\Game\State\State;
 
-class Points extends Base implements ScorableInterface
+class Points implements ScorableInterface
 {
+    public Id $id = Id::Points;
+
     public function __construct(
         public readonly int $count,
     )
     {
-        parent::__construct(Id::Points);
     }
 
     public function getPoints(State $state): int
