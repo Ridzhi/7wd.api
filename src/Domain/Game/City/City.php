@@ -102,7 +102,7 @@ class City
             $score->wonders += WonderRepository::get($wid)->getPoints($state);
         }
 
-        foreach ($this->tokens->list as $tid) {
+        foreach ($this->tokens->get() as $tid) {
             $score->tokens += TokenRepository::get($tid)->getPoints($state);
         }
 
