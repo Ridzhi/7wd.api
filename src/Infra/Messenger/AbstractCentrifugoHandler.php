@@ -20,10 +20,16 @@ abstract class AbstractCentrifugoHandler
     /**
      * @throws ExceptionInterface
      */
-    protected function publish(Channel $channel, object $message): void
+    protected function publish(
+        Channel $channel,
+        object  $message,
+        array   $channelParams = [],
+    ): void
     {
+        $channel = sprintf($channel->value, ...$channelParams);
+
         $this->centrifugo->publish(
-            $channel->value,
+            $channel,
             $this->normalizer->normalize(
                 $message,
                 context: [AbstractObjectNormalizer::SKIP_NULL_VALUES => true],

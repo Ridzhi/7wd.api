@@ -17,7 +17,9 @@ class State
     public Phase $phase = Phase::Null;
     /** @var array<Tid> */
     public array $tokens;
+    // always indicates whose move
     public City $me;
+    // always indicates whose wait
     public City $enemy;
     public CardItems $cardItems;
     public DialogItems $dialogItems;
@@ -109,7 +111,7 @@ class State
 
     public function after(): void
     {
-        if ($this->phase === Phase::Over) {
+        if ($this->isOver()) {
             return;
         }
 
@@ -152,6 +154,11 @@ class State
 
             $this->fallbackTurn = null;
         }
+    }
+
+    public function isOver(): bool
+    {
+        return $this->phase === Phase::Over;
     }
 
     protected function resolveTurn(): void

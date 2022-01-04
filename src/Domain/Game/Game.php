@@ -153,10 +153,8 @@ class Game
         return $this;
     }
 
-    public function move(MutatorInterface $move)
+    public function addMove(MutatorInterface $move): void
     {
-//        $move->mutate();
-
         $this->moves[] = $move;
     }
 }
