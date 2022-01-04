@@ -3,6 +3,7 @@
 namespace App\Infra\ArgumentResolver;
 
 use App\Infra\Http\Request\CheckEmailVerificationRequest;
+use App\Infra\Http\Request\ConstructCardRequest;
 use App\Infra\Http\Request\CreateRoomRequest;
 use App\Infra\Http\Request\JoinToRoomRequest;
 use App\Infra\Http\Request\LeaveRoomRequest;
@@ -10,7 +11,6 @@ use App\Infra\Http\Request\RefreshSessionRequest;
 use App\Infra\Http\Request\SendEmailVerificationRequest;
 use App\Infra\Http\Request\SigninRequest;
 use App\Infra\Http\Request\SignupRequest;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -21,6 +21,7 @@ class RequestResolver implements ArgumentValueResolverInterface
 {
     private array $supported = [
         CheckEmailVerificationRequest::class => true,
+        ConstructCardRequest::class => true,
         CreateRoomRequest::class => true,
         JoinToRoomRequest::class => true,
         LeaveRoomRequest::class => true,
@@ -36,7 +37,7 @@ class RequestResolver implements ArgumentValueResolverInterface
     {
     }
 
-    #[Pure] public function supports(Request $request, ArgumentMetadata $argument): bool
+    public function supports(Request $request, ArgumentMetadata $argument): bool
     {
         return isset($this->supported[$argument->getType()]);
     }
