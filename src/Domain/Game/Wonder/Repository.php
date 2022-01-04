@@ -101,13 +101,13 @@ class Repository
                         wood: 1,
                     ),
                     effects: [
-                        new Discounter(new Discount(
+                        new Discounter(
                             Context::Global,
                             1,
                             Rid::Clay,
                             Rid::Wood,
                             Rid::Stone,
-                        )),
+                        ),
                         new Points(4),
                     ],
                 ),
@@ -144,12 +144,12 @@ class Repository
                         wood: 2,
                     ),
                     effects: [
-                        new Discounter(new Discount(
+                        new Discounter(
                             Context::Global,
                             1,
                             Rid::Glass,
                             Rid::Papyrus,
-                        )),
+                        ),
                         new PlayAgain(),
                         new Points(2),
                     ],

@@ -49,7 +49,7 @@ class Repository
                 Id::Architecture->value => new Token(
                     id: Id::Architecture,
                     effects: [
-                        new Discounter(new Discount(
+                        new Discounter(
                             Context::Wonder,
                             2,
                             Rid::Clay,
@@ -57,7 +57,7 @@ class Repository
                             Rid::Stone,
                             Rid::Glass,
                             Rid::Papyrus,
-                        )),
+                        ),
                     ],
                 ),
                 Id::Economy->value => new Token(
@@ -75,7 +75,7 @@ class Repository
                 Id::Masonry->value => new Token(
                     id: Id::Masonry,
                     effects: [
-                        new Discounter(new Discount(
+                        new Discounter(
                             Context::Civilian,
                             2,
                             Rid::Clay,
@@ -83,7 +83,7 @@ class Repository
                             Rid::Stone,
                             Rid::Glass,
                             Rid::Papyrus,
-                        )),
+                        ),
                     ],
                 ),
                 Id::Mathematics->value => new Token(

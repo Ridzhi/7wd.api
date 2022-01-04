@@ -363,12 +363,12 @@ class Repository
                         clay: 1,
                     ),
                     effects: [
-                        new Discounter(new Discount(
+                        new Discounter(
                             Context::Global,
                             1,
                             Rid::Glass,
                             Rid::Papyrus,
-                        )),
+                        ),
                         new AdjustDiscardReward(),
                     ],
                 ),
@@ -382,13 +382,13 @@ class Repository
                         papyrus: 1,
                     ),
                     effects: [
-                        new Discounter(new Discount(
+                        new Discounter(
                             Context::Global,
                             1,
                             Rid::Wood,
                             Rid::Clay,
                             Rid::Stone,
-                        )),
+                        ),
                         new AdjustDiscardReward(),
                     ],
                 ),
