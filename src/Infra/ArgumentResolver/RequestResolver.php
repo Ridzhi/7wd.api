@@ -13,6 +13,7 @@ use App\Infra\Http\Request\PickBoardTokenRequest;
 use App\Infra\Http\Request\PickDiscardedCardRequest;
 use App\Infra\Http\Request\PickRandomTokenRequest;
 use App\Infra\Http\Request\PickReturnedCardsRequest;
+use App\Infra\Http\Request\PickTopLineCardRequest;
 use App\Infra\Http\Request\RefreshSessionRequest;
 use App\Infra\Http\Request\SendEmailVerificationRequest;
 use App\Infra\Http\Request\SigninRequest;
@@ -37,6 +38,7 @@ class RequestResolver implements ArgumentValueResolverInterface
         PickDiscardedCardRequest::class => true,
         PickRandomTokenRequest::class => true,
         PickReturnedCardsRequest::class => true,
+        PickTopLineCardRequest::class => true,
         RefreshSessionRequest::class => true,
         SendEmailVerificationRequest::class => true,
         SigninRequest::class => true,
