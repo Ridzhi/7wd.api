@@ -6,7 +6,7 @@ use Attribute;
 use Symfony\Component\Validator\Constraints;
 
 #[Attribute]
-class GameId extends Constraints\Compound
+class Game extends Constraints\Compound
 {
     protected function getConstraints(array $options): array
     {

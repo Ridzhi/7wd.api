@@ -2,18 +2,18 @@
 
 namespace App\Infra\Validator;
 
-use App\Domain\Game\Card\Id as Cid;
+use App\Domain\Game\Wonder\Id as Wid;
 use Attribute;
 use Symfony\Component\Validator\Constraints;
 
 #[Attribute]
-class CardId extends Constraints\Compound
+class Wonder extends Constraints\Compound
 {
     protected function getConstraints(array $options): array
     {
         return [
-            new Constraints\NotBlank(message: 'card id is required'),
-            new EnumType(type: Cid::class),
+            new Constraints\NotBlank(message: 'wonder id is required'),
+            new EnumType(type: Wid::class),
         ];
     }
 }

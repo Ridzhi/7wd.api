@@ -2,19 +2,19 @@
 
 namespace App\Infra\Http;
 
-use App\Domain\Game\Move\ConstructCard;
+use App\Domain\Game\Move\ConstructWonder;
 use App\Domain\Game\Move\InvalidError;
 use App\Domain\Passport;
 use App\Error\NotFoundError;
 use App\Handler\MoveHandler;
-use App\Infra\Http\Request\ConstructCardRequest;
+use App\Infra\Http\Request\ConstructWonderRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
-#[Route('/game/construct-card', methods: ['POST'])]
-class ConstructCardEndpoint
+#[Route('/game/construct-wonder', methods: ['POST'])]
+class ConstructWonderEndpoint
 {
     /**
      * @throws ExceptionInterface
@@ -22,15 +22,18 @@ class ConstructCardEndpoint
      * @throws NotFoundError
      */
     public function __invoke(
-        ConstructCardRequest $request,
-        Passport             $passport,
-        MoveHandler          $handler,
+        ConstructWonderRequest $request,
+        Passport               $passport,
+        MoveHandler            $handler,
     ): Response
     {
         $handler(
             $passport,
             $request->getGameId(),
-            new ConstructCard(card: $request->getCardId()),
+            new ConstructWonder(
+                wonder: $request->getWonderId(),
+                card: $request->getCardId(),
+            )
         );
 
         return new JsonResponse();
