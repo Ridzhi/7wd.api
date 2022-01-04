@@ -3,14 +3,14 @@
 namespace App\Domain\Game\City;
 
 use App\Domain\Game\Card\Id as Cid;
-use App\Domain\Game\Resource\Id;
 use App\Domain\Game\Resource\Id as Rid;
+use App\Domain\Game\Rule;
 use App\Domain\Game\Wonder\Id as Wid;
 use SplObjectStorage;
 
 class Bank
 {
-    public int $discardReward = self::DEFAULT_DISCARD_REWARD;
+    public int $discardReward = Rule::DEFAULT_DISCARD_REWARD;
 
     /**
      * @var SplObjectStorage | array<Cid, int>
@@ -30,10 +30,6 @@ class Bank
      */
     public SplObjectStorage $resourcePrice;
 
-    private const DEFAULT_DISCARD_REWARD = 2;
-    private const DEFAULT_RESOURCE_PRICE = 2;
-    private const FIXED_RESOURCE_PRICE = 1;
-
     public function __construct()
     {
         $this->cardPrice = new SplObjectStorage();
@@ -41,23 +37,12 @@ class Bank
         $this->resourcePrice = new SplObjectStorage();
 
         foreach (Rid::cases() as $rid) {
-            $this->resourcePrice[$rid] = self::DEFAULT_RESOURCE_PRICE;
+            $this->resourcePrice[$rid] = Rule::DEFAULT_RESOURCE_PRICE;
         }
     }
 
     public function hasFixedResourcePrice(Rid $resource): bool
     {
-        return $this->resourcePrice[$resource] === self::FIXED_RESOURCE_PRICE;
-    }
-
-    /**
-     * @return array<int>
-     */
-    public function getDiscountPriority(): array
-    {
-        $data = $this->resourcePrice;
-        arsort($data, SORT_NUMERIC);
-
-        return array_keys($data);
+        return $this->resourcePrice[$resource] === Rule::FIXED_RESOURCE_PRICE;
     }
 }

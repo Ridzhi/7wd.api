@@ -14,24 +14,10 @@ class Storage extends SplObjectStorage
         int $papyrus = 0,
     )
     {
-        if ($clay) {
-            $this[Id::Clay] = $clay;
-        }
-
-        if ($wood) {
-            $this[Id::Wood] = $wood;
-        }
-
-        if ($stone) {
-            $this[Id::Stone] = $stone;
-        }
-
-        if ($glass) {
-            $this[Id::Glass] = $glass;
-        }
-
-        if ($papyrus) {
-            $this[Id::Papyrus] = $papyrus;
-        }
+        $this[Id::Clay] = $clay;
+        $this[Id::Wood] = $wood;
+        $this[Id::Stone] = $stone;
+        $this[Id::Glass] = $glass;
+        $this[Id::Papyrus] = $papyrus;
     }
 }

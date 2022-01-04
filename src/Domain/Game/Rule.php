@@ -11,5 +11,7 @@ interface Rule
     public const GUILDS_LIMIT = 3;
     public const COINS_PER_POINT = 3;
     public const WONDERS_CONSTRUCT_LIMIT = 7;
-    public const FIXED_RESOURCE_COST = 1;
+    public const DEFAULT_RESOURCE_PRICE = 1;
+    public const FIXED_RESOURCE_PRICE = 1;
+    public const DEFAULT_DISCARD_REWARD = 2;
 }

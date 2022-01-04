@@ -26,7 +26,7 @@ class FixedCost implements MutatorInterface
     public function mutate(State $state): void
     {
         foreach ($this->resources as $resource) {
-            $state->me->bank->resourcePrice[$resource] = Rule::FIXED_RESOURCE_COST;
+            $state->me->bank->resourcePrice[$resource] = Rule::FIXED_RESOURCE_PRICE;
         }
     }
 }
