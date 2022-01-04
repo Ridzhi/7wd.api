@@ -6,6 +6,7 @@ use App\Infra\Http\Request\CheckEmailVerificationRequest;
 use App\Infra\Http\Request\ConstructCardRequest;
 use App\Infra\Http\Request\ConstructWonderRequest;
 use App\Infra\Http\Request\CreateRoomRequest;
+use App\Infra\Http\Request\DiscardCardRequest;
 use App\Infra\Http\Request\JoinToRoomRequest;
 use App\Infra\Http\Request\LeaveRoomRequest;
 use App\Infra\Http\Request\RefreshSessionRequest;
@@ -25,6 +26,7 @@ class RequestResolver implements ArgumentValueResolverInterface
         ConstructCardRequest::class => true,
         ConstructWonderRequest::class => true,
         CreateRoomRequest::class => true,
+        DiscardCardRequest::class => true,
         JoinToRoomRequest::class => true,
         LeaveRoomRequest::class => true,
         RefreshSessionRequest::class => true,
