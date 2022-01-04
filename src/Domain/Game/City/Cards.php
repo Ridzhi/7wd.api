@@ -39,4 +39,12 @@ class Cards
     {
         return count($this->data[$type]);
     }
+
+    /**
+     * @return array<Id>
+     */
+    public function get(Type $type): array
+    {
+        return $this->data[$type] ?? [];
+    }
 }
