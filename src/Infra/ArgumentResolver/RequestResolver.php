@@ -9,6 +9,7 @@ use App\Infra\Http\Request\CreateRoomRequest;
 use App\Infra\Http\Request\DiscardCardRequest;
 use App\Infra\Http\Request\JoinToRoomRequest;
 use App\Infra\Http\Request\LeaveRoomRequest;
+use App\Infra\Http\Request\PickBoardTokenRequest;
 use App\Infra\Http\Request\RefreshSessionRequest;
 use App\Infra\Http\Request\SendEmailVerificationRequest;
 use App\Infra\Http\Request\SigninRequest;
@@ -29,6 +30,7 @@ class RequestResolver implements ArgumentValueResolverInterface
         DiscardCardRequest::class => true,
         JoinToRoomRequest::class => true,
         LeaveRoomRequest::class => true,
+        PickBoardTokenRequest::class => true,
         RefreshSessionRequest::class => true,
         SendEmailVerificationRequest::class => true,
         SigninRequest::class => true,
