@@ -34,7 +34,7 @@ class ConstructCard implements MutatorInterface
 
         if ($state->me->chains->has($this->card)) {
             if ($state->me->tokens->has(Tid::Urbanism)) {
-                $state->me->treasure->change(4);
+                $state->me->treasure->add(4);
             }
         } else {
             $state->me->pay(

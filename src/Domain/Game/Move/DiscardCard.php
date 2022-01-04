@@ -29,7 +29,7 @@ class DiscardCard implements MutatorInterface
 
         $state->cardItems->addToDiscard($this->card);
         $state->deck->remove($this->card);
-        $state->me->treasure->change($state->me->bank->discardReward);
+        $state->me->treasure->add($state->me->bank->discardReward);
 
         $state->after();
     }

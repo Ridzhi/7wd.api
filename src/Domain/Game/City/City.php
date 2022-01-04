@@ -129,10 +129,10 @@ class City
             throw new InvalidError();
         }
 
-        $this->treasure->change(-$price);
+        $this->treasure->add(-$price);
 
         if ($enemy->tokens->has(Tid::Economy)) {
-            $enemy->treasure->change($price - $cost->coins);
+            $enemy->treasure->add($price - $cost->coins);
         }
     }
 

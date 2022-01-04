@@ -4,12 +4,15 @@ namespace App\Domain\Game\Effect;
 
 use App\Domain\Game\MutatorInterface;
 use App\Domain\Game\Resource\Id as Rid;
+use App\Domain\Game\Rule;
 use App\Domain\Game\State\State;
 
-class FixedCost extends Base implements MutatorInterface
+class FixedCost implements MutatorInterface
 {
+    public Id $id = Id::FixedCost;
+
     /**
-     * @var Rid[]
+     * @var array<Rid>
      */
     public readonly array $resources;
 
@@ -18,13 +21,12 @@ class FixedCost extends Base implements MutatorInterface
     )
     {
         $this->resources = $resource;
-        parent::__construct(Id::FixedCost);
     }
 
     public function mutate(State $state): void
     {
-//        foreach ($this->resources as $resource) {
-//            $state->me->resources->setCost($resource, Value::FIXED_RESOURCE_COST);
-//        }
+        foreach ($this->resources as $resource) {
+            $state->me->bank->resourcePrice[$resource] = Rule::FIXED_RESOURCE_COST;
+        }
     }
 }

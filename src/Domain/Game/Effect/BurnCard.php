@@ -8,17 +8,19 @@ use App\Domain\Game\MutatorInterface;
 use App\Domain\Game\Phase;
 use App\Domain\Game\State\State;
 
-class BurnCard extends Base implements MutatorInterface
+class BurnCard implements MutatorInterface
 {
+    public Id $id = Id::BurnCard;
+
     public function __construct(
-        public readonly Type $type,
+        public readonly Type $group,
     )
     {
-        parent::__construct(Id::BurnCard);
     }
 
     public function mutate(State $state): void
     {
+        // @TODO
 //        $state->dialogs->add(new Dialog(
 //            phase: Phase::BurnCard,
 //            turn: $state->me->name,

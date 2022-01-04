@@ -8,7 +8,7 @@ use App\Domain\Game\Resource\Storage;
 class Discount
 {
     /**
-     * @var Rid[]
+     * @var array<Rid>
      */
     private array $resources;
 
@@ -32,7 +32,7 @@ class Discount
 
     /**
      * @param Storage $cost
-     * @param Rid[] $priority Higher to lower price
+     * @param array<Rid> $priority Higher to lower price
      */
     public function discount(Storage $cost, array $priority): void
     {

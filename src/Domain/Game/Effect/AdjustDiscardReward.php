@@ -5,15 +5,12 @@ namespace App\Domain\Game\Effect;
 use App\Domain\Game\MutatorInterface;
 use App\Domain\Game\State\State;
 
-class AdjustDiscardReward extends Base implements MutatorInterface
+class AdjustDiscardReward implements MutatorInterface
 {
-    public function __construct()
-    {
-        parent::__construct(Id::AdjustDiscardReward);
-    }
+    public Id $id = Id::AdjustDiscardReward;
 
     public function mutate(State $state): void
     {
-        // TODO: Implement mutate() method.
+        $state->me->bank->discardReward += 1;
     }
 }
