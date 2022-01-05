@@ -94,6 +94,9 @@ class RoomRepository
         return $this->serializer->deserialize($room, Room::class, 'json');
     }
 
+    /**
+     * @return array<Room>
+     */
     public function findAll(): array
     {
         $rooms = [];
