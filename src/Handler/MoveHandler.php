@@ -10,6 +10,7 @@ use App\Domain\Game\Move\Over;
 use App\Domain\Game\MutatorInterface;
 use App\Domain\Game\State\State;
 use App\Domain\Passport;
+use App\Domain\RoomRepository;
 use App\Error\NotFoundError;
 use App\Infra\Messenger\UpdateGameMessage;
 use Carbon\CarbonImmutable;
@@ -22,6 +23,7 @@ class MoveHandler
 {
     public function __construct(
         private GameRepository         $gameRepository,
+        private RoomRepository         $roomRepository,
         private EntityManagerInterface $em,
         private MessageBusInterface    $bus,
         private DenormalizerInterface  $moveDenormalizer,
@@ -49,6 +51,8 @@ class MoveHandler
                 ->setWinner($state->winner)
                 ->setVictory($state->victory)
                 ->setFinishedAt(CarbonImmutable::now());
+
+            $this->roomRepository->remove($game->getHostNickname());
         }
 
         $this->em->persist($game);
