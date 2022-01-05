@@ -15,6 +15,7 @@ use App\Infra\Http\Request\PickRandomTokenRequest;
 use App\Infra\Http\Request\PickReturnedCardsRequest;
 use App\Infra\Http\Request\PickTopLineCardRequest;
 use App\Infra\Http\Request\RefreshSessionRequest;
+use App\Infra\Http\Request\SelectWhoStartsTheNextAgeRequest;
 use App\Infra\Http\Request\SendEmailVerificationRequest;
 use App\Infra\Http\Request\SigninRequest;
 use App\Infra\Http\Request\SignupRequest;
@@ -40,6 +41,7 @@ class RequestResolver implements ArgumentValueResolverInterface
         PickReturnedCardsRequest::class => true,
         PickTopLineCardRequest::class => true,
         RefreshSessionRequest::class => true,
+        SelectWhoStartsTheNextAgeRequest::class => true,
         SendEmailVerificationRequest::class => true,
         SigninRequest::class => true,
         SignupRequest::class => true,
