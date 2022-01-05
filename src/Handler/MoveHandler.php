@@ -64,6 +64,7 @@ class MoveHandler
      */
     private function allowedOrFail(Passport $passport, State $state, MutatorInterface $move): void
     {
+        // @TODO remove check for over, loser getting from $passport always
         if ($move instanceof Over) {
             if ($passport->getNickname() !== $move->loser) {
                 throw new InvalidError();
