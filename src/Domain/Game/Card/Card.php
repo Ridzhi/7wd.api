@@ -17,14 +17,14 @@ class Card implements MutatorInterface, ScorableInterface, BurnInterface
     /**
      * @param Id $id
      * @param Age $age
-     * @param Type $type
+     * @param Group $group
      * @param Cost|null $cost
-     * @param Base[] $effects
+     * @param array $effects
      */
     public function __construct(
         public readonly Id $id,
         public readonly Age $age,
-        public readonly Type $type,
+        public readonly Group $group,
         public readonly ?Cost $cost = null,
         array  $effects = [],
     )

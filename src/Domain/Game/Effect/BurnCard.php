@@ -2,7 +2,7 @@
 
 namespace App\Domain\Game\Effect;
 
-use App\Domain\Game\Card\Type;
+use App\Domain\Game\Card\Group;
 use App\Domain\Game\Dialog;
 use App\Domain\Game\MutatorInterface;
 use App\Domain\Game\Phase;
@@ -13,7 +13,7 @@ class BurnCard implements MutatorInterface
     public Id $id = Id::BurnCard;
 
     public function __construct(
-        public readonly Type $group,
+        public readonly Group $group,
     )
     {
     }

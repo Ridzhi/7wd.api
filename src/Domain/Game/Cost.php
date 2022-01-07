@@ -2,8 +2,11 @@
 
 namespace App\Domain\Game;
 
+//use App\Domain\Game\Resource\Id;
 use App\Domain\Game\Resource\Id as Rid;
 use App\Domain\Game\Resource\Storage;
+//use JetBrains\PhpStorm\Internal\TentativeType;
+//use JsonSerializable;
 
 class Cost
 {
@@ -33,4 +36,17 @@ class Cost
             papyrus: $papyrus,
         );
     }
+
+//    public function jsonSerialize(): mixed
+//    {
+//        $resources
+//
+//        return [
+//          'coins' => $this->coins,
+//          'resources' => [
+//              Id::Clay->value => $this->resources[Id::Clay],
+//              Id::Clay->value => $this->resources[Id::Clay],
+//          ]
+//        ];
+//    }
 }

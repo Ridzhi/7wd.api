@@ -4,7 +4,7 @@ namespace App\Domain\Game\City;
 
 use App\Domain\Game\Card\Id;
 use App\Domain\Game\Card\Repository;
-use App\Domain\Game\Card\Type;
+use App\Domain\Game\Card\Group;
 use SplObjectStorage;
 
 class Cards
@@ -20,22 +20,22 @@ class Cards
     {
         $card = Repository::get($card);
 
-        if (!isset($this->data[$card->type])) {
-            $this->data[$card->type] = [];
+        if (!isset($this->data[$card->group])) {
+            $this->data[$card->group] = [];
         }
 
-        $this->data[$card->type][] = $card->id;
+        $this->data[$card->group][] = $card->id;
     }
 
     public function remove(Id $card): void
     {
         $card = Repository::get($card);
 
-        $pos = array_search($card->id, $this->data[$card->type], true);
-        unset($this->data[$card->type][$pos]);
+        $pos = array_search($card->id, $this->data[$card->group], true);
+        unset($this->data[$card->group][$pos]);
     }
 
-    public function count(Type $type): int
+    public function count(Group $type): int
     {
         return count($this->data[$type]);
     }
@@ -43,7 +43,7 @@ class Cards
     /**
      * @return array<Id>
      */
-    public function get(Type $type): array
+    public function get(Group $type): array
     {
         return $this->data[$type] ?? [];
     }

@@ -5,7 +5,7 @@ namespace App\Domain\Game;
 use App\Domain\Game\Card\Card;
 use App\Domain\Game\Card\Id as Cid;
 use App\Domain\Game\Card\Repository;
-use App\Domain\Game\Card\Type;
+use App\Domain\Game\Card\Group;
 
 class Deck
 {
@@ -91,7 +91,7 @@ class Deck
             }
 
             if (isset($this->faceDown[$cid->value])) {
-                $layout[$pos] = Repository::get($cid)->type === Type::Guild
+                $layout[$pos] = Repository::get($cid)->group === Group::Guild
                     ? self::LAYOUT_SLOT_GUILD
                     : self::LAYOUT_SLOT_FACE_DOWN;
             }

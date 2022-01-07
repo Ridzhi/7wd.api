@@ -7,6 +7,7 @@ use App\Infra\Http\Request\ConstructCardRequest;
 use App\Infra\Http\Request\ConstructWonderRequest;
 use App\Infra\Http\Request\CreateRoomRequest;
 use App\Infra\Http\Request\DiscardCardRequest;
+use App\Infra\Http\Request\GetGameRequest;
 use App\Infra\Http\Request\JoinToRoomRequest;
 use App\Infra\Http\Request\LeaveRoomRequest;
 use App\Infra\Http\Request\PickBoardTokenRequest;
@@ -34,6 +35,7 @@ class RequestResolver implements ArgumentValueResolverInterface
         ConstructWonderRequest::class => true,
         CreateRoomRequest::class => true,
         DiscardCardRequest::class => true,
+        GetGameRequest::class => true,
         JoinToRoomRequest::class => true,
         LeaveRoomRequest::class => true,
         PickBoardTokenRequest::class => true,

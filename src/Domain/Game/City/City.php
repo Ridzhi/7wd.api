@@ -5,7 +5,7 @@ namespace App\Domain\Game\City;
 use App\Domain\Game\Bonus;
 use App\Domain\Game\Card\Id as Cid;
 use App\Domain\Game\Card\Repository as CardRepository;
-use App\Domain\Game\Card\Type;
+use App\Domain\Game\Card\Group;
 use App\Domain\Game\Cost;
 use App\Domain\Game\Discount\Context;
 use App\Domain\Game\Move\InvalidError;
@@ -82,16 +82,16 @@ class City
                 $points = $card->getPoints($state);
 
                 switch ($type) {
-                    case Type::Civilian:
+                    case Group::Civilian:
                         $score->civilian += $points;
                         break;
-                    case Type::Science:
+                    case Group::Science:
                         $score->science += $points;
                         break;
-                    case Type::Commercial:
+                    case Group::Commercial:
                         $score->commercial += $points;
                         break;
-                    case Type::Guild:
+                    case Group::Guild:
                         $score->guilds += $points;
                         break;
                 }
@@ -139,13 +139,13 @@ class City
     public function getBonusRate(Bonus $bonus): int
     {
         return match ($bonus) {
-            Bonus::Resources => $this->cards->count(Type::RawMaterials) + $this->cards->count(Type::ManufacturedGoods),
-            Bonus::RawMaterials => $this->cards->count(Type::RawMaterials),
-            Bonus::ManufacturedGoods => $this->cards->count(Type::ManufacturedGoods),
-            Bonus::Military => $this->cards->count(Type::Military),
-            Bonus::Commercial => $this->cards->count(Type::Commercial),
-            Bonus::Civilian => $this->cards->count(Type::Civilian),
-            Bonus::Science => $this->cards->count(Type::Science),
+            Bonus::Resources => $this->cards->count(Group::RawMaterials) + $this->cards->count(Group::ManufacturedGoods),
+            Bonus::RawMaterials => $this->cards->count(Group::RawMaterials),
+            Bonus::ManufacturedGoods => $this->cards->count(Group::ManufacturedGoods),
+            Bonus::Military => $this->cards->count(Group::Military),
+            Bonus::Commercial => $this->cards->count(Group::Commercial),
+            Bonus::Civilian => $this->cards->count(Group::Civilian),
+            Bonus::Science => $this->cards->count(Group::Science),
             Bonus::Wonder => $this->wonders->countConstructed(),
             Bonus::Coin => intdiv($this->treasure->coins, Rule::COINS_PER_POINT),
         };

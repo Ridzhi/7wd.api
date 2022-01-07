@@ -4,7 +4,7 @@ namespace App\Domain\Game\Discount;
 
 use App\Domain\Game\Card\Id;
 use App\Domain\Game\Card\Repository;
-use App\Domain\Game\Card\Type;
+use App\Domain\Game\Card\Group;
 
 enum Context: int
 {
@@ -14,7 +14,7 @@ enum Context: int
 
     public static function byCard(Id $card): self
     {
-        return Repository::get($card)->type === Type::Civilian
+        return Repository::get($card)->group === Group::Civilian
             ? self::Civilian
             : self::Global;
     }

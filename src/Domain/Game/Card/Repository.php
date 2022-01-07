@@ -39,6 +39,14 @@ class Repository
     }
 
     /**
+     * @return array<int, Card>
+     */
+    public static function getAll(): array
+    {
+        return self::getData();
+    }
+
+    /**
      * @return array<Id>
      */
     public static function getByAge(Age $age): array
@@ -68,7 +76,7 @@ class Repository
             ];
 
             foreach (self::getData() as $card) {
-                if ($card->type === Type::Guild) {
+                if ($card->group === Group::Guild) {
                     self::$cache['guilds'][] = $card->id;
                     continue;
                 }
@@ -90,7 +98,7 @@ class Repository
                 Id::LumberYard->value => new Card(
                     id: Id::LumberYard,
                     age: Age::I,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     effects: [
                         new Resource(Rid::Wood, 1)
                     ],
@@ -98,7 +106,7 @@ class Repository
                 Id::LoggingCamp->value => new Card(
                     id: Id::LoggingCamp,
                     age: Age::I,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     cost: new Cost(coins: 1),
                     effects: [
                         new Resource(Rid::Wood, 1)
@@ -107,7 +115,7 @@ class Repository
                 Id::ClayPool->value => new Card(
                     id: Id::ClayPool,
                     age: Age::I,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     effects: [
                         new Resource(Rid::Clay, 1)
                     ],
@@ -115,7 +123,7 @@ class Repository
                 Id::ClayPit->value => new Card(
                     id: Id::ClayPit,
                     age: Age::I,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     cost: new Cost(coins: 1),
                     effects: [
                         new Resource(Rid::Clay, 1)
@@ -124,7 +132,7 @@ class Repository
                 Id::Quarry->value => new Card(
                     id: Id::Quarry,
                     age: Age::I,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     effects: [
                         new Resource(Rid::Stone, 1)
                     ],
@@ -132,7 +140,7 @@ class Repository
                 Id::StonePit->value => new Card(
                     id: Id::StonePit,
                     age: Age::I,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     cost: new Cost(coins: 1),
                     effects: [
                         new Resource(Rid::Stone, 1)
@@ -141,7 +149,7 @@ class Repository
                 Id::GlassWorks->value => new Card(
                     id: Id::GlassWorks,
                     age: Age::I,
-                    type: Type::ManufacturedGoods,
+                    group: Group::ManufacturedGoods,
                     cost: new Cost(coins: 1),
                     effects: [
                         new Resource(Rid::Glass, 1)
@@ -150,7 +158,7 @@ class Repository
                 Id::Press->value => new Card(
                     id: Id::Press,
                     age: Age::I,
-                    type: Type::ManufacturedGoods,
+                    group: Group::ManufacturedGoods,
                     cost: new Cost(coins: 1),
                     effects: [
                         new Resource(Rid::Papyrus, 1)
@@ -159,7 +167,7 @@ class Repository
                 Id::GuardTower->value => new Card(
                     id: Id::GuardTower,
                     age: Age::I,
-                    type: Type::Military,
+                    group: Group::Military,
                     effects: [
                         new Military(1),
                     ],
@@ -167,7 +175,7 @@ class Repository
                 Id::Workshop->value => new Card(
                     id: Id::Workshop,
                     age: Age::I,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(papyrus: 1),
                     effects: [
                         new Points(1),
@@ -177,7 +185,7 @@ class Repository
                 Id::Apothecary->value => new Card(
                     id: Id::Apothecary,
                     age: Age::I,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(glass: 1),
                     effects: [
                         new Points(1),
@@ -187,7 +195,7 @@ class Repository
                 Id::StoneReserve->value => new Card(
                     id: Id::StoneReserve,
                     age: Age::I,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(coins: 3),
                     effects: [
                         new FixedCost(Rid::Stone),
@@ -197,7 +205,7 @@ class Repository
                 Id::ClayReserve->value => new Card(
                     id: Id::ClayReserve,
                     age: Age::I,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(coins: 3),
                     effects: [
                         new FixedCost(Rid::Clay),
@@ -207,7 +215,7 @@ class Repository
                 Id::WoodReserve->value => new Card(
                     id: Id::WoodReserve,
                     age: Age::I,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(coins: 3),
                     effects: [
                         new FixedCost(Rid::Wood),
@@ -217,7 +225,7 @@ class Repository
                 Id::Stable->value => new Card(
                     id: Id::Stable,
                     age: Age::I,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(wood: 1),
                     effects: [
                         new Military(1),
@@ -227,7 +235,7 @@ class Repository
                 Id::Garrison->value => new Card(
                     id: Id::Garrison,
                     age: Age::I,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(clay: 1),
                     effects: [
                         new Military(1),
@@ -237,7 +245,7 @@ class Repository
                 Id::Palisade->value => new Card(
                     id: Id::Palisade,
                     age: Age::I,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(coins: 2),
                     effects: [
                         new Military(1),
@@ -247,7 +255,7 @@ class Repository
                 Id::Scriptorium->value => new Card(
                     id: Id::Scriptorium,
                     age: Age::I,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(coins: 2),
                     effects: [
                         new Science(Symbol::Writing),
@@ -257,7 +265,7 @@ class Repository
                 Id::Pharmacist->value => new Card(
                     id: Id::Pharmacist,
                     age: Age::I,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(coins: 2),
                     effects: [
                         new Science(Symbol::Mortar),
@@ -267,7 +275,7 @@ class Repository
                 Id::Theater->value => new Card(
                     id: Id::Theater,
                     age: Age::I,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     effects: [
                         new Points(3),
                         new Chain(Id::Statue),
@@ -276,7 +284,7 @@ class Repository
                 Id::Altar->value => new Card(
                     id: Id::Altar,
                     age: Age::I,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     effects: [
                         new Points(3),
                         new Chain(Id::Temple),
@@ -285,7 +293,7 @@ class Repository
                 Id::Baths->value => new Card(
                     id: Id::Baths,
                     age: Age::I,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(stone: 1),
                     effects: [
                         new Points(3),
@@ -295,7 +303,7 @@ class Repository
                 Id::Tavern->value => new Card(
                     id: Id::Tavern,
                     age: Age::I,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     effects: [
                         new Coins(4),
                         new Chain(Id::Lighthouse),
@@ -305,7 +313,7 @@ class Repository
                 Id::SawMill->value => new Card(
                     id: Id::SawMill,
                     age: Age::II,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     cost: new Cost(coins: 2),
                     effects: [
                         new Resource(Rid::Wood, 2),
@@ -314,7 +322,7 @@ class Repository
                 Id::BrickYard->value => new Card(
                     id: Id::BrickYard,
                     age: Age::II,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     cost: new Cost(coins: 2),
                     effects: [
                         new Resource(Rid::Clay, 2),
@@ -323,7 +331,7 @@ class Repository
                 Id::ShelfQuarry->value => new Card(
                     id: Id::ShelfQuarry,
                     age: Age::II,
-                    type: Type::RawMaterials,
+                    group: Group::RawMaterials,
                     cost: new Cost(coins: 2),
                     effects: [
                         new Resource(Rid::Stone, 2),
@@ -332,7 +340,7 @@ class Repository
                 Id::GlassBlower->value => new Card(
                     id: Id::GlassBlower,
                     age: Age::II,
-                    type: Type::ManufacturedGoods,
+                    group: Group::ManufacturedGoods,
                     effects: [
                         new Resource(Rid::Glass, 1),
                     ],
@@ -340,7 +348,7 @@ class Repository
                 Id::DryingRoom->value => new Card(
                     id: Id::DryingRoom,
                     age: Age::II,
-                    type: Type::ManufacturedGoods,
+                    group: Group::ManufacturedGoods,
                     effects: [
                         new Resource(Rid::Papyrus, 1),
                     ],
@@ -348,7 +356,7 @@ class Repository
                 Id::Walls->value => new Card(
                     id: Id::Walls,
                     age: Age::II,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(stone: 2),
                     effects: [
                         new Military(2),
@@ -357,7 +365,7 @@ class Repository
                 Id::Forum->value => new Card(
                     id: Id::Forum,
                     age: Age::II,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(
                         coins: 3,
                         clay: 1,
@@ -375,7 +383,7 @@ class Repository
                 Id::Caravansery->value => new Card(
                     id: Id::Caravansery,
                     age: Age::II,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(
                         coins: 2,
                         glass: 1,
@@ -395,7 +403,7 @@ class Repository
                 Id::CustomHouse->value => new Card(
                     id: Id::CustomHouse,
                     age: Age::II,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(coins: 4),
                     effects: [
                         new FixedCost(Rid::Papyrus, Rid::Glass),
@@ -405,7 +413,7 @@ class Repository
                 Id::CourtHouse->value => new Card(
                     id: Id::CourtHouse,
                     age: Age::II,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         wood: 2,
                         glass: 1,
@@ -417,7 +425,7 @@ class Repository
                 Id::HorseBreeders->value => new Card(
                     id: Id::HorseBreeders,
                     age: Age::II,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(
                         clay: 1,
                         wood: 1,
@@ -429,7 +437,7 @@ class Repository
                 Id::Barracks->value => new Card(
                     id: Id::Barracks,
                     age: Age::II,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(coins: 3),
                     effects: [
                         new Military(1),
@@ -438,7 +446,7 @@ class Repository
                 Id::ArcheryRange->value => new Card(
                     id: Id::ArcheryRange,
                     age: Age::II,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(
                         stone: 1,
                         wood: 1,
@@ -452,7 +460,7 @@ class Repository
                 Id::ParadeGround->value => new Card(
                     id: Id::ParadeGround,
                     age: Age::II,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(
                         clay: 2,
                         glass: 1,
@@ -465,7 +473,7 @@ class Repository
                 Id::Library->value => new Card(
                     id: Id::Library,
                     age: Age::II,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(
                         stone: 1,
                         wood: 1,
@@ -479,7 +487,7 @@ class Repository
                 Id::Dispensary->value => new Card(
                     id: Id::Dispensary,
                     age: Age::II,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(
                         clay: 2,
                         stone: 1,
@@ -492,7 +500,7 @@ class Repository
                 Id::School->value => new Card(
                     id: Id::School,
                     age: Age::II,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(
                         wood: 1,
                         papyrus: 2,
@@ -506,7 +514,7 @@ class Repository
                 Id::Laboratory->value => new Card(
                     id: Id::Laboratory,
                     age: Age::II,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(
                         wood: 1,
                         glass: 2,
@@ -520,7 +528,7 @@ class Repository
                 Id::Statue->value => new Card(
                     id: Id::Statue,
                     age: Age::II,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(clay: 2),
                     effects: [
                         new Points(4),
@@ -530,7 +538,7 @@ class Repository
                 Id::Temple->value => new Card(
                     id: Id::Temple,
                     age: Age::II,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         wood: 1,
                         papyrus: 1,
@@ -543,7 +551,7 @@ class Repository
                 Id::Aqueduct->value => new Card(
                     id: Id::Aqueduct,
                     age: Age::II,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(stone: 3),
                     effects: [
                         new Points(5),
@@ -552,7 +560,7 @@ class Repository
                 Id::Rostrum->value => new Card(
                     id: Id::Rostrum,
                     age: Age::II,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         stone: 1,
                         wood: 1,
@@ -565,7 +573,7 @@ class Repository
                 Id::Brewery->value => new Card(
                     id: Id::Brewery,
                     age: Age::II,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     effects: [
                         new Coins(6),
                         new Chain(Id::Arena),
@@ -576,7 +584,7 @@ class Repository
                 Id::Arsenal->value => new Card(
                     id: Id::Arsenal,
                     age: Age::III,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(
                         clay: 3,
                         wood: 2,
@@ -588,7 +596,7 @@ class Repository
                 Id::Pretorium->value => new Card(
                     id: Id::Pretorium,
                     age: Age::III,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(coins: 8),
                     effects: [
                         new Military(3),
@@ -597,7 +605,7 @@ class Repository
                 Id::Academy->value => new Card(
                     id: Id::Academy,
                     age: Age::III,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(
                         stone: 1,
                         wood: 1,
@@ -611,7 +619,7 @@ class Repository
                 Id::Study->value => new Card(
                     id: Id::Study,
                     age: Age::III,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(
                         wood: 2,
                         glass: 1,
@@ -626,7 +634,7 @@ class Repository
                 Id::ChamberOfCommerce->value => new Card(
                     id: Id::ChamberOfCommerce,
                     age: Age::III,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(papyrus: 2),
                     effects: [
                         new Points(3),
@@ -637,7 +645,7 @@ class Repository
                 Id::Port->value => new Card(
                     id: Id::Port,
                     age: Age::III,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(
                         wood: 1,
                         glass: 1,
@@ -652,7 +660,7 @@ class Repository
                 Id::Armory->value => new Card(
                     id: Id::Armory,
                     age: Age::III,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(
                         stone: 2,
                         glass: 1,
@@ -666,7 +674,7 @@ class Repository
                 Id::Palace->value => new Card(
                     id: Id::Palace,
                     age: Age::III,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         clay: 1,
                         stone: 1,
@@ -680,7 +688,7 @@ class Repository
                 Id::TownHall->value => new Card(
                     id: Id::TownHall,
                     age: Age::III,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         stone: 3,
                         wood: 2,
@@ -692,7 +700,7 @@ class Repository
                 Id::Obelisk->value => new Card(
                     id: Id::Obelisk,
                     age: Age::III,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         wood: 2,
                         glass: 1,
@@ -704,7 +712,7 @@ class Repository
                 Id::Fortifications->value => new Card(
                     id: Id::Fortifications,
                     age: Age::III,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(
                         stone: 2,
                         clay: 1,
@@ -717,7 +725,7 @@ class Repository
                 Id::SiegeWorkshop->value => new Card(
                     id: Id::SiegeWorkshop,
                     age: Age::III,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(
                         wood: 3,
                         glass: 1,
@@ -729,7 +737,7 @@ class Repository
                 Id::Circus->value => new Card(
                     id: Id::Circus,
                     age: Age::III,
-                    type: Type::Military,
+                    group: Group::Military,
                     cost: new Cost(
                         clay: 2,
                         stone: 2,
@@ -741,7 +749,7 @@ class Repository
                 Id::University->value => new Card(
                     id: Id::University,
                     age: Age::III,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(
                         clay: 1,
                         glass: 1,
@@ -755,7 +763,7 @@ class Repository
                 Id::Observatory->value => new Card(
                     id: Id::Observatory,
                     age: Age::III,
-                    type: Type::Science,
+                    group: Group::Science,
                     cost: new Cost(
                         stone: 1,
                         papyrus: 2,
@@ -768,7 +776,7 @@ class Repository
                 Id::Gardens->value => new Card(
                     id: Id::Gardens,
                     age: Age::III,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         clay: 2,
                         wood: 2,
@@ -780,7 +788,7 @@ class Repository
                 Id::Pantheon->value => new Card(
                     id: Id::Pantheon,
                     age: Age::III,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         clay: 1,
                         wood: 1,
@@ -793,7 +801,7 @@ class Repository
                 Id::Senate->value => new Card(
                     id: Id::Senate,
                     age: Age::III,
-                    type: Type::Civilian,
+                    group: Group::Civilian,
                     cost: new Cost(
                         clay: 2,
                         stone: 1,
@@ -806,7 +814,7 @@ class Repository
                 Id::Lighthouse->value => new Card(
                     id: Id::Lighthouse,
                     age: Age::III,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(
                         clay: 2,
                         glass: 1,
@@ -820,7 +828,7 @@ class Repository
                 Id::Arena->value => new Card(
                     id: Id::Arena,
                     age: Age::III,
-                    type: Type::Commercial,
+                    group: Group::Commercial,
                     cost: new Cost(
                         clay: 1,
                         stone: 1,
@@ -835,7 +843,7 @@ class Repository
                 Id::MerchantsGuild->value => new Card(
                     id: Id::MerchantsGuild,
                     age: Age::III,
-                    type: Type::Guild,
+                    group: Group::Guild,
                     cost: new Cost(
                         clay: 1,
                         wood: 1,
@@ -849,7 +857,7 @@ class Repository
                 Id::ShipOwnersGuild->value => new Card(
                     id: Id::ShipOwnersGuild,
                     age: Age::III,
-                    type: Type::Guild,
+                    group: Group::Guild,
                     cost: new Cost(
                         clay: 1,
                         stone: 1,
@@ -863,7 +871,7 @@ class Repository
                 Id::BuildersGuild->value => new Card(
                     id: Id::BuildersGuild,
                     age: Age::III,
-                    type: Type::Guild,
+                    group: Group::Guild,
                     cost: new Cost(
                         stone: 2,
                         clay: 1,
@@ -877,7 +885,7 @@ class Repository
                 Id::MagistratesGuild->value => new Card(
                     id: Id::MagistratesGuild,
                     age: Age::III,
-                    type: Type::Guild,
+                    group: Group::Guild,
                     cost: new Cost(
                         wood: 2,
                         clay: 1,
@@ -890,7 +898,7 @@ class Repository
                 Id::ScientistsGuild->value => new Card(
                     id: Id::ScientistsGuild,
                     age: Age::III,
-                    type: Type::Guild,
+                    group: Group::Guild,
                     cost: new Cost(
                         clay: 2,
                         wood: 2,
@@ -902,7 +910,7 @@ class Repository
                 Id::MoneyLendersGuild->value => new Card(
                     id: Id::MoneyLendersGuild,
                     age: Age::III,
-                    type: Type::Guild,
+                    group: Group::Guild,
                     cost: new Cost(
                         stone: 2,
                         wood: 2,
@@ -914,7 +922,7 @@ class Repository
                 Id::TacticiansGuild->value => new Card(
                     id: Id::TacticiansGuild,
                     age: Age::III,
-                    type: Type::Guild,
+                    group: Group::Guild,
                     cost: new Cost(
                         stone: 2,
                         clay: 1,

@@ -2,9 +2,7 @@
 
 namespace App\Domain\Game\Card;
 
-use JsonSerializable;
-
-enum Type: int
+enum Group: int
 {
     case Civilian = 1;
     case Commercial = 2;

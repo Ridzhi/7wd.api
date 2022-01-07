@@ -2,7 +2,7 @@
 
 namespace App\Domain\Game\Wonder;
 
-use App\Domain\Game\Card\Type;
+use App\Domain\Game\Card\Group;
 use App\Domain\Game\Cost;
 use App\Domain\Game\Discount\Context;
 use App\Domain\Game\Discount\Discount;
@@ -65,7 +65,7 @@ class Repository
                         stone: 2,
                     ),
                     effects: [
-                        new BurnCard(Type::ManufacturedGoods),
+                        new BurnCard(Group::ManufacturedGoods),
                         new Military(1, false),
                         new Points(3),
                     ],
@@ -185,7 +185,7 @@ class Repository
                         stone: 1,
                     ),
                     effects: [
-                        new BurnCard(Type::RawMaterials),
+                        new BurnCard(Group::RawMaterials),
                         new Military(1, false),
                         new Points(3),
                     ],
