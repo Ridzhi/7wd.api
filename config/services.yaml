@@ -51,11 +51,11 @@ services:
         arguments:
             - 'redis://localhost:%env(SWD_DB_REDIS_PORT)%'
 
-    App\Infra\Serializer\Move\Factory: ~
+    App\Infra\Serializer\Domain\Game\Move\DenormalizerFactory: ~
 
     app.move_denormalizer:
         class: Symfony\Component\Serializer\Serializer
-        factory: [ '@App\Infra\Serializer\Move\Factory', 'factory' ]
+        factory: [ '@App\Infra\Serializer\Domain\Game\Move\DenormalizerFactory', 'factory' ]
 
     App\Adapter\CentrifugoClientFactory: ~
 
@@ -69,3 +69,7 @@ services:
 
     App\Domain\Passport:
         factory: [ '@App\Infra\Security\PassportProvider', 'factory' ]
+
+    App\Infra\Serializer\Domain\Game\Resource\StorageNormalizer:
+        tags:
+            - { name: serializer.normalizer }
